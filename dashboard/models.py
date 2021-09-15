@@ -11,7 +11,7 @@ class PedidosUser(models.Model):
 	b_day = models.DateTimeField('Birth Date')
 	position = models.CharField('Position', max_length=50)
 	def __str__(self):
-		return self.email
+		return self.f_name + ' ' + self.l_name
 
 
 class Category(models.Model):

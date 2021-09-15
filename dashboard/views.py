@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Orders
 
 # Create your views here.
 
@@ -13,4 +14,5 @@ def products(request):
     return render(request, 'dashboard/products.html', {})
 
 def orders(request):
-    return render(request, 'dashboard/orders.html', {})
+    orders_list = Orders.objects.all()
+    return render(request, 'dashboard/orders.html', {'orders_list':orders_list})
