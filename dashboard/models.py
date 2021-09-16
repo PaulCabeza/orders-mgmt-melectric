@@ -2,6 +2,11 @@ from django.db import models
 
 # Create your models here.
 
+STATUS = (
+	('Pending','Pending'),
+	('Approved','Approved'),
+)
+
 class PedidosUser(models.Model):
 	email = models.EmailField('Email')
 	user = models.CharField('User', max_length=50)
@@ -28,7 +33,7 @@ class Products(models.Model):
 
 class Orders(models.Model):
 	description = models.CharField('Order Description', max_length=100)
-	status = models.CharField('Status', max_length=50)
+	status = models.CharField('Status', max_length=50, choices=STATUS)
 	approval_date = models.DateTimeField('Approval Date')
 	user = models.ForeignKey(PedidosUser, blank=True, null=True, on_delete=models.CASCADE)
 	products = models.ManyToManyField(Products, blank=True)

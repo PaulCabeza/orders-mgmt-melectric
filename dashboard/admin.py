@@ -6,6 +6,8 @@ from .models import Orders
 
 # Register your models here.
 
+admin.site.site_header = 'M-Electric Materials Orders App'
+
 admin.site.register(Category)
 admin.site.register(PedidosUser)
 admin.site.register(Products)
