@@ -8,7 +8,10 @@ from .models import Orders
 
 admin.site.site_header = 'M-Electric Materials Orders App'
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('description', 'status')
+
 admin.site.register(Category)
 admin.site.register(PedidosUser)
 admin.site.register(Products)
-admin.site.register(Orders)
+admin.site.register(Orders, OrderAdmin)
