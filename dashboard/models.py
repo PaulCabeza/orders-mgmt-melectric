@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -25,18 +26,19 @@ class Category(models.Model):
 		return self.category_name
 
 
-class Products(models.Model):
+class Product(models.Model):
 	product_name = models.CharField('Product Name', max_length=100)
 	category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE)
 	def __str__(self):
 		return self.product_name
 
-class Orders(models.Model):
+class Order(models.Model):
 	description = models.CharField('Order Description', max_length=100)
 	status = models.CharField('Status', max_length=50, choices=STATUS)
 	approval_date = models.DateTimeField('Approval Date')
 	user = models.ForeignKey(PedidosUser, blank=True, null=True, on_delete=models.CASCADE)
-	products = models.ManyToManyField(Products, blank=True)
+	products = models.ManyToManyField(Product, blank=True)
+	created = models.DateTimeField(auto_now_add=True)
 	def __str__(self):
 		return self.description
 
