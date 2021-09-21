@@ -17,7 +17,10 @@ def staff(request):
 def products(request):
     # render all products from the DB
     products_list = Product.objects.all()
-    return render(request, 'dashboard/products.html', {'products_list': products_list})
+    context = {
+        'products_list': products_list,
+    }
+    return render(request, 'dashboard/products.html', context)
 
 @login_required
 def orders(request):
