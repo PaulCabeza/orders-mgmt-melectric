@@ -2,6 +2,7 @@
 {% block title %} Materials Orders M Electric Request {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated and user.is_staff %}
 {% include 'partials/topnav.html' %}
 <!--Graphs-->
 <div class="container">
@@ -97,5 +98,9 @@
     </div>
 </div>
 <!--End Graphs-->
+{% else %}
 
+{% include 'dashboard/employee_index.html' %}
+
+{% endif %}
 {% endblock %}

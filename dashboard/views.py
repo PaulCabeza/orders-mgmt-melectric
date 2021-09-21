@@ -1,18 +1,25 @@
 from django.shortcuts import render
 # from django.http import HttpResponse
-from .models import Order
+from django.contrib.auth.decorators import login_required
+from .models import Order, Product
 
 # Create your views here.
 
+@login_required
 def index(request):
     return render(request, 'dashboard/index.html', {})
 
+@login_required
 def staff(request):
     return render(request, 'dashboard/staff.html', {})
 
+@login_required
 def products(request):
-    return render(request, 'dashboard/products.html', {})
+    # render all products from the DB
+    products_list = Product.objects.all()
+    return render(request, 'dashboard/products.html', {'products_list': products_list})
 
+@login_required
 def orders(request):
     # Render the orders on the DB
     orders_list = Order.objects.all()
