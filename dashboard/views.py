@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Order, Product
+from .forms import ProductForm
 
 # Create your views here.
 
@@ -17,8 +18,18 @@ def staff(request):
 def products(request):
     # render all products from the DB
     products_list = Product.objects.all()
+    # determine if sent to save the info or only render the blank form
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('products')
+    else:
+        form = ProductForm()
+
     context = {
         'products_list': products_list,
+        'form': form,
     }
     return render(request, 'dashboard/products.html', context)
 
