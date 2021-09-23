@@ -6,6 +6,23 @@ from .forms import ProductForm
 
 # Create your views here.
 
+def product_update(request, product_id):
+    context = {
+
+    }
+    return render(request, 'dashboard/product_update.html', context)
+
+def product_delete(request, product_id):
+    # item = product_id
+    product = Product.objects.get(id=product_id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('products')
+    context = {
+        'product': product,
+    }
+    return render(request, 'dashboard/product_delete.html', context)
+
 @login_required
 def index(request):
     return render(request, 'dashboard/index.html', {})

@@ -36,8 +36,8 @@
                             <td>{{ product.category }}</td>
                             
                             <td>
-                                <a class="btn btn-info btn-sm" href="">Edit</a>
-                                <a class="btn btn-danger btn-sm" href="">Del</a>
+                                <a class="btn btn-info btn-sm" href="{% url 'product-update' product.id %}">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{% url 'product-delete' product.id %}">Del</a>
                             </td>
                         </tr>
                     {% endfor %}                        
