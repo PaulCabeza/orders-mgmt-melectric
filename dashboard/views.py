@@ -7,13 +7,23 @@ from .forms import ProductForm
 # Create your views here.
 
 def product_update(request, product_id):
+    # determine if receive data to render the product info to edit
+    item = Product.objects.get(id=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=item)
+        if form.is_valid:
+            form.save()
+            return redirect('products')
+    else:
+        form = ProductForm(instance=item)
+    # creating the context dictionary ready to be sent to the view
     context = {
-
+        'form': form
     }
     return render(request, 'dashboard/product_update.html', context)
 
 def product_delete(request, product_id):
-    # item = product_id
+    # get the product info from DB using the ORM
     product = Product.objects.get(id=product_id)
     if request.method == 'POST':
         product.delete()
