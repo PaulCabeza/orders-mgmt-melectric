@@ -21,19 +21,19 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header bg-info text-white">
-                        Statistics
+                        Main Menu
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <a class="text-decoration-none text-dark" href="{% url 'staff' %}">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Staff <i class="fas fa-users"></i></h4>
+                                        <h4>Staff<i class="fas fa-users"></i></h4>
                                         <h3>4</h3>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <a class="text-decoration-none text-dark" href="{% url 'products' %}">
                                     <div class="card my-card shadow text-center p-3">
                                         <h4>Products <i class="fas fa-box"></i></h4>
@@ -41,11 +41,19 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <a class="text-decoration-none text-dark" href="{% url 'orders' %}">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Orders <i class="fas fa-shipping-fast"></i></h4>
+                                        <h4>All Orders <i class="fas fa-shipping-fast"></i></h4>
                                         <h3>4</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a class="text-decoration-none text-dark" href="{% url 'orders' %}">
+                                    <div class="card my-card shadow text-center p-1">
+                                        <h4>Pending Orders<i class="fas fa-shipping-fast"></i></h4>
+                                        <h4>4</h4>
                                     </div>
                                 </a>
                             </div>

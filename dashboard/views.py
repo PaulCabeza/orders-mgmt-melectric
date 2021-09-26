@@ -1,10 +1,29 @@
+# imports from django
 from django.shortcuts import render, redirect
-# from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+# Custom import files
 from .models import Order, Product
 from .forms import ProductForm
 
 # Create your views here.
+
+@login_required
+def index(request):
+    orders_list = Order.objects.all()
+    context = {
+        'orders_list': orders_list,
+    }
+    return render(request, 'dashboard/index.html', context)
+
+# render the staff page
+@login_required 
+def staff(request):
+    user_list = User.objects.all()
+    context = {
+        'user_list': user_list
+    }
+    return render(request, 'dashboard/staff.html', context)
 
 def product_update(request, product_id):
     # determine if receive data to render the product info to edit
@@ -22,6 +41,7 @@ def product_update(request, product_id):
     }
     return render(request, 'dashboard/product_update.html', context)
 
+@login_required
 def product_delete(request, product_id):
     # get the product info from DB using the ORM
     product = Product.objects.get(id=product_id)
@@ -32,14 +52,6 @@ def product_delete(request, product_id):
         'product': product,
     }
     return render(request, 'dashboard/product_delete.html', context)
-
-@login_required
-def index(request):
-    return render(request, 'dashboard/index.html', {})
-
-@login_required
-def staff(request):
-    return render(request, 'dashboard/staff.html', {})
 
 @login_required
 def products(request):

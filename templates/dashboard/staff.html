@@ -6,42 +6,36 @@
     <!--Table-->
     <div class="container">
         <div class="row my-4">
-            <div class="col-md-4"></div>
-            <div class="col-md-8">
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
                 <table class="table bg-white">
                     <thead class="bg-info">
                         <tr class="text-white">
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Username</th>
                             <th scope="col">Type</th>
+                            <th scope="col">Orders</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for user in user_list %}
                         <tr>
-                            <th scope="row"><a class="btn btn-info btn-sm" href="">View</a></th>
-                            <td>Jose</td>
-                            <td>Menendez</td>
-                            <td>Admin</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.first_name}} {{ user.last_name }}</td>
+                            <td>{{ user.username }}</td>
+                            {% if user.is_staff and user.is_superuser %}
+                            <td>Admin</td>                            
+                            {% elif user.is_staff%}
+                            <td>Supervisor</td>
+                            {% else %}
+                            <td>Staff</td>
+                            {% endif %}
+                            <td><a class="" href="">View Orders</a></td>
+                            <td scope="row"><a class="btn btn-info btn-sm" href="">View</a></td>
                         </tr>
-                        <tr>
-                            <th scope="row"><a class="btn btn-info btn-sm" href="">View</a></th>
-                            <td>Yessica</td>
-                            <td>Flores</td>
-                            <td>Assistant</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a class="btn btn-info btn-sm" href="">View</a></th>
-                            <td>Carlos</td>
-                            <td>Garcia</td>
-                            <td>Technician</td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><a class="btn btn-info btn-sm" href="">View</a></th>
-                            <td>Rene</td>
-                            <td>Garcia</td>
-                            <td>Technician</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

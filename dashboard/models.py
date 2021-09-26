@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -34,11 +35,11 @@ class Product(models.Model):
 
 class Order(models.Model):
 	description = models.CharField('Order Description', max_length=100)
-	status = models.CharField('Status', max_length=50, choices=STATUS)
-	approval_date = models.DateTimeField('Approval Date')
-	user = models.ForeignKey(PedidosUser, blank=True, null=True, on_delete=models.CASCADE)
+	status = models.CharField('Status', max_length=50, choices=STATUS)	
+	user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 	products = models.ManyToManyField(Product, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
+	approval_date = models.DateTimeField('Approval Date')
 	def __str__(self):
 		return self.description
 

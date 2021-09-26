@@ -1,10 +1,10 @@
 {% load crispy_forms_tags %}
 <div class="container">
     <div class="row mt-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <div class="card-header">
-                    Make Request
+                    Menu
                 </div>
                 <div class="card-body">
                     <form method="POST">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
                     My orders
@@ -24,20 +24,24 @@
                     <table class="table bg-white">
                         <thead class="bg-info text-white">
                             <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Quantity</th>
+                                <th>#</th>
+                                <th scope="col">Order Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Sent Date</th>
+                                <th scope="col">Approval Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for order in order %}
-                            {% if order.customer == user %}
+                            {% for order in orders_list %}
+                            <!--  if order.customer == user  -->
                             <tr>
-                                <td>{{ order.name }}</td>
-                                <td>{{ order.name.category }}</td>
-                                <td>{{ order.order_quantity }}</td>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ order.description }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>{{ order.created.date }}</td>
+                                <td>{{ order.approval_date.date }}</td>
                             </tr>
-                            {% endif %}
+                            <!--  endif -->
                             {% endfor %}
                         </tbody>
                     </table>
