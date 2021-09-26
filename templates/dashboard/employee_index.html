@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                             {% for order in orders_list %}
-                            <!--  if order.customer == user  -->
+                                {%  if order.user == user  %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td>{{ order.description }}</td>
@@ -41,7 +41,7 @@
                                 <td>{{ order.created.date }}</td>
                                 <td>{{ order.approval_date.date }}</td>
                             </tr>
-                            <!--  endif -->
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>

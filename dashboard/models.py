@@ -39,7 +39,7 @@ class Order(models.Model):
 	user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 	products = models.ManyToManyField(Product, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
-	approval_date = models.DateTimeField('Approval Date')
+	approval_date = models.DateTimeField('Approval Date', blank=True, null=True)
 	def __str__(self):
 		return self.description
 
