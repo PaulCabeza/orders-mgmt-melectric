@@ -4,9 +4,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 # Custom import files
 from .models import Order, Product
-from .forms import ProductForm
+from .forms import ProductForm, OrderForm
 
 # Create your views here.
+
+@login_required
+def new_order(request, user):
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+    else:
+        form = OrderForm()
+    
+    context = {
+        'form': form,
+        'user': user,
+    }
+
+    return render(request, 'dashboard/new_order.html', context)
 
 @login_required
 def index(request):
