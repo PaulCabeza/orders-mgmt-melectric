@@ -9,6 +9,36 @@ from .forms import ProductForm, OrderForm
 # Create your views here.
 
 @login_required
+def prueba(request):
+    
+    if request.method == 'POST':
+        # form = OrderForm(request.POST)
+        description = request.POST['description']
+        # get the list of productos from html
+        products = request.POST.getlist('products')        
+        # create the order object to save a record
+        # order_form = OrderForm()
+        order_form = Order()
+        order_form.description = description       
+        order_form.user = request.user
+        order_form.save()
+        # save m2m products in this order        
+        for product in products:
+            order_form.products.add(product)
+                
+        context = {
+            'description': description,
+            'products': products,
+            'user': request.user,
+            }
+    else:
+        context = {
+
+        }
+
+    return render(request, 'dashboard/pruebacustomsaveform.html',context)
+
+@login_required
 def new_order(request, user):
     if request.method == 'POST':
         form = OrderForm(request.POST)
