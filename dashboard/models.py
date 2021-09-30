@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from django.utils import timezone
 from django.contrib.auth.models import User
 
@@ -37,11 +38,16 @@ class Order(models.Model):
 	description = models.CharField('Order Description', max_length=100)
 	status = models.CharField('Status', max_length=50, choices=STATUS)	
 	user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
-	products = models.ManyToManyField(Product, blank=True)
+	products = models.ManyToManyField(Product, blank=True, through='ThroughModel')
 	created = models.DateTimeField(auto_now_add=True)
 	approval_date = models.DateTimeField('Approval Date', blank=True, null=True)
 	def __str__(self):
 		return self.description
+
+class ThroughModel(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	order = models.ForeignKey(Order, on_delete=CASCADE)
+	quantity = models.PositiveIntegerField()
 
 
 
