@@ -31,7 +31,7 @@
                             <input type="text" class="form-control" id="description" placeholder="Enter the description, ex: Order for customer #123" name="description">
                         </div>
                         
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="formGroupExampleInput">Product</label>
                             <select class="form-control" name="products">
                                 <option>Default select</option>
@@ -41,9 +41,9 @@
                                 <option value="15">Quince</option>
                                 <option value="16">Dieciseis</option>
                             </select>
-                        </div>
-
-                        <div class="form-group">
+                        </div> -->
+                        
+                        <!-- <div class="form-group">
                             <label for="formGroupExampleInput">Product</label>
                             <select class="form-control" name="products">
                                 <option>Default select</option>
@@ -53,8 +53,27 @@
                                 <option value="15">Quince</option>
                                 <option value="16">Dieciseis</option>
                             </select>
-                        </div>
-
+                        </div> -->
+                        
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="formGroupExampleInput">Product</label>
+                                    <select class="form-control" name="products">
+                                        <option>Default select</option>
+                                        <option value="2">Linear Fluorescent, Pin/Plug-In G13</option>
+                                        <option value="13">Trece</option>
+                                        <option value="14">Catorce</option>
+                                        <option value="15">Quince</option>
+                                        <option value="16">Dieciseis</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Last name">
+                                </div>
+                            </div>
+                        </form>
+                        
                         description: {{description}}
                         <br>
                         productos: {{products}}
@@ -62,9 +81,9 @@
                         usuario: {{user}}
                         <div class="form-group row">
                             <div class="col-sm-12">
-                              <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
-                          </div>
+                        </div>
                         
                     </form>
                     

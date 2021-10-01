@@ -46,8 +46,8 @@ class Order(models.Model):
 
 class ThroughModel(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
-	order = models.ForeignKey(Order, on_delete=CASCADE)
-	quantity = models.PositiveIntegerField()
+	order = models.ForeignKey(Order, on_delete=models.CASCADE)
+	quantity = models.PositiveIntegerField(null=True, default=0)
 
 
 
