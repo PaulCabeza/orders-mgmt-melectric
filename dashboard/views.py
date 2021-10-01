@@ -17,8 +17,10 @@ def prueba(request):
         # get the list of products from html
         if request.POST['products']:
             products = request.POST['products']
+            quantities = request.POST['quantities']
         else:
             products = request.POST.getlist('products')
+            quantities = request.POST.getlist('quantities')
         # create the order object to save a record
         # order_form = OrderForm()
         order_form = Order()
@@ -28,7 +30,7 @@ def prueba(request):
         order_form.save()
         # save m2m products in this order        
         for product in products:
-            order_form.products.add(product)
+            order_form.products.add(product, through_defaults={'quantity': quantities})            
                 
         context = {
             'description': description,

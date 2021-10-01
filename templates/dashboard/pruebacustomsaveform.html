@@ -5,6 +5,13 @@
 
 {% block content %}
 
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+
+
 <div class="container">
     <div class="row mt-4">
         <div class="col-md-3">
@@ -17,7 +24,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
@@ -31,50 +38,40 @@
                             <label for="formGroupExampleInput">Order description</label>
                             <input type="text" class="form-control" id="description" placeholder="Enter the description, ex: Order for customer #123" name="description">
                         </div>
-                        
-                        <!-- <div class="form-group">
-                            <label for="formGroupExampleInput">Product</label>
-                            <select class="form-control" name="products">
-                                <option>Default select</option>
-                                <option value="2">Linear Fluorescent, Pin/Plug-In G13</option>
-                                <option value="13">Trece</option>
-                                <option value="14">Catorce</option>
-                                <option value="15">Quince</option>
-                                <option value="16">Dieciseis</option>
-                            </select>
-                        </div> -->
-                        
-                        <!-- <div class="form-group">
-                            <label for="formGroupExampleInput">Product</label>
-                            <select class="form-control" name="products">
-                                <option>Default select</option>
-                                <option value="2">Linear Fluorescent, Pin/Plug-In G13</option>
-                                <option value="13">Trece</option>
-                                <option value="14">Catorce</option>
-                                <option value="15">Quince</option>
-                                <option value="16">Dieciseis</option>
-                            </select>
-                        </div> -->
-                        
-                        
-                            <div class="row">
-                                <div class="col">
-                                    <label for="formGroupExampleInput">Product</label>
-                                    <select class="form-control" name="products">
-                                        <option>Default select</option>
-                                        <option value="1">Tubo de 10"</option>
-                                        <option value="2">Tubo de 12"</option>
-                                        <option value="3">Tubo de 14"</option>
-                                        <option value="4">Tubo de 16"</option>                                        
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="formGroupExampleInput">Quantity</label>
-                                    <input type="number" class="form-control" placeholder="" name="quantity">
-                                </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="formGroupExampleInput">Product</label>
+                                <select class="form-control" name="products">
+                                    <option>Default select</option>
+                                    <option value="1">Tubo de 10"</option>
+                                    <option value="2">Tubo de 12"</option>
+                                    <option value="3">Tubo de 14"</option>
+                                    <option value="4">Tubo de 16"</option>                                        
+                                </select>
                             </div>
-                        
-                        
+                            <div class="col">
+                                <label for="formGroupExampleInput">Quantity</label>
+                                <input type="number" class="form-control" placeholder="" name="quantities">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="formGroupExampleInput">Product</label>
+                                <select class="form-control" name="products">
+                                    <option>Default select</option>
+                                    <option value="1">Tubo de 10"</option>
+                                    <option value="2">Tubo de 12"</option>
+                                    <option value="3">Tubo de 14"</option>
+                                    <option value="4">Tubo de 16"</option>                                        
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="formGroupExampleInput">Quantity</label>
+                                <input type="number" class="form-control" placeholder="" name="quantities">
+                            </div>
+                        </div>
+                                                
                         description: {{description}}
                         <br>
                         productos: {{products}}
