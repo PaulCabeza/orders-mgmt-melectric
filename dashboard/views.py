@@ -14,12 +14,16 @@ def prueba(request):
     if request.method == 'POST':
         # form = OrderForm(request.POST)
         description = request.POST['description']
-        # get the list of productos from html
-        products = request.POST.getlist('products')        
+        # get the list of products from html
+        if request.POST['products']:
+            products = request.POST['products']
+        else:
+            products = request.POST.getlist('products')
         # create the order object to save a record
         # order_form = OrderForm()
         order_form = Order()
-        order_form.description = description       
+        order_form.description = description
+        order_form.status = 'Pending'   
         order_form.user = request.user
         order_form.save()
         # save m2m products in this order        
