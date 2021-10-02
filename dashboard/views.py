@@ -11,19 +11,15 @@ from .forms import ProductForm, OrderForm
 
 @login_required
 def prueba(request):
+
+    list_products = Product.objects.all()
     
     if request.method == 'POST':
-        # form = OrderForm(request.POST)
         description = request.POST['description']
         # get the list of products from html
-        # if request.POST['products']:
-        #     products = request.POST['products']
-        #     quantities = request.POST['quantities']
-        # else:
         products = request.POST.getlist('products')
         quantities = request.POST.getlist('quantities')
         # create the order object to save a record
-        # order_form = OrderForm()
         order_form = Order()
         order_form.description = description
         order_form.status = 'Pending'   
@@ -37,11 +33,12 @@ def prueba(request):
             'description': description,
             'products': products,
             'user': request.user,
-            'quantities': quantities
+            'quantities': quantities,
+
             }
     else:
         context = {
-
+            'list_products': list_products,
         }
 
     return render(request, 'dashboard/pruebacustomsaveform.html',context)
