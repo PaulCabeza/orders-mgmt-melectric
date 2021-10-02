@@ -71,10 +71,29 @@
                                 <input type="number" class="form-control" placeholder="" name="quantities">
                             </div>
                         </div>
-                                                
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="formGroupExampleInput">Product</label>
+                                <select class="form-control" name="products">
+                                    <option>Default select</option>
+                                    <option value="1">Tubo de 10"</option>
+                                    <option value="2">Tubo de 12"</option>
+                                    <option value="3">Tubo de 14"</option>
+                                    <option value="4">Tubo de 16"</option>                                        
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="formGroupExampleInput">Quantity</label>
+                                <input type="number" class="form-control" placeholder="" name="quantities">
+                            </div>
+                        </div>
+                                                                        
                         description: {{description}}
                         <br>
-                        productos: {{products}}
+                        productos: {{products}}<br>                        
+                        <br>
+                        cantidades: {{quantities}}
                         <br>
                         usuario: {{user}}
                         <div class="form-group row">

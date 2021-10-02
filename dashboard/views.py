@@ -1,4 +1,5 @@
 # imports from django
+from django.db.models.query_utils import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -15,12 +16,12 @@ def prueba(request):
         # form = OrderForm(request.POST)
         description = request.POST['description']
         # get the list of products from html
-        if request.POST['products']:
-            products = request.POST['products']
-            quantities = request.POST['quantities']
-        else:
-            products = request.POST.getlist('products')
-            quantities = request.POST.getlist('quantities')
+        # if request.POST['products']:
+        #     products = request.POST['products']
+        #     quantities = request.POST['quantities']
+        # else:
+        products = request.POST.getlist('products')
+        quantities = request.POST.getlist('quantities')
         # create the order object to save a record
         # order_form = OrderForm()
         order_form = Order()
@@ -29,13 +30,14 @@ def prueba(request):
         order_form.user = request.user
         order_form.save()
         # save m2m products in this order        
-        for product in products:
-            order_form.products.add(product, through_defaults={'quantity': quantities})            
-                
+        for prod, quan in zip(products, quantities):
+            order_form.products.add(prod, through_defaults={'quantity': quan})
+        
         context = {
             'description': description,
             'products': products,
             'user': request.user,
+            'quantities': quantities
             }
     else:
         context = {
