@@ -11,6 +11,10 @@
     }
 </script>
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 
 <div class="container">
     <div class="row mt-4">
@@ -40,7 +44,7 @@
                         </div>
                         
                         <div class="row">
-                            <div class="col">
+                            <div class="col-5">
                                 <label for="formGroupExampleInput">Product</label>
                                 <select class="form-control" name="products">
                                     <option>Default select</option>
@@ -49,9 +53,16 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="col">
+                            <div class="col-5">
                                 <label for="formGroupExampleInput">Quantity</label>
                                 <input type="number" class="form-control" placeholder="" name="quantities">
+                            </div>
+                            <div class="col-2">
+                                <br>
+                                <a href="#" class="btn btn-danger a-btn-slide-text pd-0">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <span><strong>Delete</strong></span>            
+                                </a>
                             </div>
                         </div>
                         
@@ -82,7 +93,7 @@
         row.setAttribute("class", "row")        
         // create second div class col
         col1 = document.createElement("div")
-        col1.setAttribute("class", "col")
+        col1.setAttribute("class", "col-5")
         // create select to show products
         d = document.createElement("select")
         d.setAttribute("class", "form-control")
@@ -96,31 +107,56 @@
         label1 = document.createElement("label")
         label1.setAttribute("for", "formGroupExampleInput")
         label1.innerHTML = "Product"
-
+        
         col1.appendChild(label1)
         col1.appendChild(d)
         // row.appendChild(c)
         // start second div row
         col2 = document.createElement("div")
-        col2.setAttribute("class", "col")
-
+        col2.setAttribute("class", "col-5")
+        
         f = document.createElement("label")
         f.setAttribute("for", "formGroupExampleInput")
         f.innerHTML = "Quantity"
-
+        
         g = document.createElement("input")
         g.setAttribute("type", "number")
         g.setAttribute("class", "form-control")
         g.setAttribute("name", "quantities")
-
+        
         col2.appendChild(f)
         col2.appendChild(g)
+        // start building the 3rd column, the delete icon
+        col3 = document.createElement("div")
+        col3.setAttribute("class", "col-2")
+
+        br = document.createElement("br")        
+        
+        span1 = document.createElement("span")
+        span1.setAttribute("class", "glyphicon glyphicon-remove")
+        span1.setAttribute("aria-hidden", "true")
+
+        strong1 = document.createElement("strong")
+        strong1.innerHTML = "Delete"
+
+        span2 = document.createElement("span")
+        span2.appendChild(strong1)
+
+        adelete = document.createElement("a")
+        adelete.setAttribute("href", "#")
+        adelete.setAttribute("class", "btn btn-danger a-btn-slide-text")
+        adelete.appendChild(span1)
+        adelete.appendChild(span2)
+
+        col3.appendChild(br)
+        col3.appendChild(adelete)
 
         row.appendChild(col1)
         row.appendChild(col2)
-
+        row.appendChild(col3)
+        
         a.appendChild(row)        
-
+        
     }
 </script>
 
