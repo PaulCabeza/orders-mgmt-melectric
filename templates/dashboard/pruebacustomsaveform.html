@@ -12,8 +12,9 @@
 </script>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 
 
 <div class="container">
@@ -36,26 +37,26 @@
                 </div>
                 <div class="card-body">
                     
-                    <form method="POST">
+                    <form method="POST" class="needs-validation" novalidate>
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="formGroupExampleInput">Order description</label>
-                            <input type="text" class="form-control" id="description" placeholder="Enter the description, ex: Order for customer #123" name="description">
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="Enter the description, ex: Order for customer #123" name="description" required>
                         </div>
                         
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-7">
                                 <label for="formGroupExampleInput">Product</label>
-                                <select class="form-control" name="products">
-                                    <option>Default select</option>
+                                <select class="form-control" name="products" required>
+                                    <option disabled selected value> -- select a product -- </option>
                                     {% for product in list_products%}
                                     <option value="{{product.id}}">{{product.product_name}}</option>                                    
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-5">
+                            <div class="col-3">
                                 <label for="formGroupExampleInput">Quantity</label>
-                                <input type="number" class="form-control" placeholder="" name="quantities">
+                                <input type="number" class="form-control" placeholder="" name="quantities" required>
                             </div>
                             <div class="col-2">
                                 <br>
@@ -93,13 +94,22 @@
         row.setAttribute("class", "row")        
         // create second div class col
         col1 = document.createElement("div")
-        col1.setAttribute("class", "col-5")
+        col1.setAttribute("class", "col-7")
         // create select to show products
         d = document.createElement("select")
         d.setAttribute("class", "form-control")
         d.setAttribute("name", "products")
+        d.setAttribute("required", "")
         
-        d.options[d.options.length] = new Option("Defaul select")
+        selectedOption = document.createElement("option")
+        selectedOption.innerHTML = "-- select a product --"
+        selectedOption.value = ""
+        selectedOption.disabled = true
+        selectedOption.selected = true
+
+        d.appendChild(selectedOption)
+
+        // d.options[d.options.length] = new Option("-- select a product --")
         {% for product in list_products %}
         d.options[d.options.length] = new Option("{{product.product_name}}","{{product.id}}")
         {% endfor %}
@@ -113,7 +123,7 @@
         // row.appendChild(c)
         // start second div row
         col2 = document.createElement("div")
-        col2.setAttribute("class", "col-5")
+        col2.setAttribute("class", "col-3")
         
         f = document.createElement("label")
         f.setAttribute("for", "formGroupExampleInput")
@@ -123,6 +133,7 @@
         g.setAttribute("type", "number")
         g.setAttribute("class", "form-control")
         g.setAttribute("name", "quantities")
+        g.setAttribute("required", "")
         
         col2.appendChild(f)
         col2.appendChild(g)
@@ -164,6 +175,23 @@
         e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
     };
     
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
     
 </script>
 
