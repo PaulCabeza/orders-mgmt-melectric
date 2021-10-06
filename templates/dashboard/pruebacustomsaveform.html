@@ -129,35 +129,42 @@
         // start building the 3rd column, the delete icon
         col3 = document.createElement("div")
         col3.setAttribute("class", "col-2")
-
+        
         br = document.createElement("br")        
         
         span1 = document.createElement("span")
         span1.setAttribute("class", "glyphicon glyphicon-remove")
         span1.setAttribute("aria-hidden", "true")
-
+        
         strong1 = document.createElement("strong")
         strong1.innerHTML = "Delete"
-
+        
         span2 = document.createElement("span")
         span2.appendChild(strong1)
-
+        
         adelete = document.createElement("a")
         adelete.setAttribute("href", "#")
         adelete.setAttribute("class", "btn btn-danger a-btn-slide-text")
+        adelete.setAttribute("onclick", "delete_row(this)")
         adelete.appendChild(span1)
         adelete.appendChild(span2)
-
+        
         col3.appendChild(br)
         col3.appendChild(adelete)
-
+        
         row.appendChild(col1)
         row.appendChild(col2)
         row.appendChild(col3)
         
-        a.appendChild(row)        
+        a.appendChild(row)
         
     }
+    
+    function delete_row(e){
+        e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
+    };
+    
+    
 </script>
 
 {% endblock %}
