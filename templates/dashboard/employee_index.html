@@ -12,7 +12,7 @@
                         form                 
                         <input type="submit" class="btn btn-info btn-block"  value="Place a new order">                        
                     </form> -->
-                    <a class="btn btn-info btn-block" href="{% url 'new-order' user %}">Place a new order</a>
+                    <a class="btn btn-info btn-block" href="{% url 'new-order' %}">Place a new order</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                                 {%  if order.user == user  %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td>{{ order.description }}</td>
+                                <td><a href="">{{ order.description }}</a></td>
                                 <td>{{ order.status }}</td>
                                 <td>{{ order.created.date }}</td>
                                 <td>{{ order.approval_date.date }}</td>

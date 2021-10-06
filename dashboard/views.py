@@ -10,7 +10,7 @@ from .forms import ProductForm, OrderForm
 # Create your views here.
 
 @login_required
-def prueba(request):
+def new_order(request):
 
     list_products = Product.objects.all()
     
@@ -28,6 +28,7 @@ def prueba(request):
         # save m2m products in this order        
         for prod, quan in zip(products, quantities):
             order_form.products.add(prod, through_defaults={'quantity': quan})
+            return redirect('index')
         
         context = {
             'description': description,
@@ -41,21 +42,21 @@ def prueba(request):
             'list_products': list_products,
         }
 
-    return render(request, 'dashboard/pruebacustomsaveform.html',context)
+    return render(request, 'dashboard/new_order.html',context)
 
-@login_required
-def new_order(request, user):
-    if request.method == 'POST':
-        form = OrderForm(request.POST)
-    else:
-        form = OrderForm()
+# @login_required
+# def new_order(request, user):
+#     if request.method == 'POST':
+#         form = OrderForm(request.POST)
+#     else:
+#         form = OrderForm()
     
-    context = {
-        'form': form,
-        'user': user,
-    }
+#     context = {
+#         'form': form,
+#         'user': user,
+#     }
 
-    return render(request, 'dashboard/new_order.html', context)
+#     return render(request, 'dashboard/new_order.html', context)
 
 @login_required
 def index(request):
