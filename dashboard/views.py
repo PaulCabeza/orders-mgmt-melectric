@@ -10,6 +10,13 @@ from .forms import ProductForm, OrderForm
 # Create your views here.
 
 @login_required
+def order_detail(request, id):
+    order = Order.objects.get(pk=id)
+    return render(request, "dashboard/order_detail.html", {})
+
+
+
+@login_required
 def new_order(request):
 
     list_products = Product.objects.all()

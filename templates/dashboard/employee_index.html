@@ -37,7 +37,7 @@
                                 {%  if order.user == user  %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td><a href="">{{ order.description }}</a></td>
+                                <td><a href="{% url 'order-detail' order.id %}">{{ order.description }}</a></td>
                                 <td>{{ order.status }}</td>
                                 <td>{{ order.created.date }}</td>
                                 <td>{{ order.approval_date.date }}</td>
