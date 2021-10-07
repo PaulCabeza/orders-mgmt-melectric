@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 # Custom import files
-from .models import Order, Product
+from .models import Order, Product, ThroughModel
 from .forms import ProductForm, OrderForm
 
 # Create your views here.
@@ -12,12 +12,12 @@ from .forms import ProductForm, OrderForm
 @login_required
 def order_detail(request, id):
     order = Order.objects.get(pk=id)
+    products = ThroughModel.objects.filter(order=order.id)
     context = {
-        'order': order
+        'order': order,
+        'products': products,
     }
     return render(request, "dashboard/order_detail.html", context)
-
-
 
 @login_required
 def new_order(request):

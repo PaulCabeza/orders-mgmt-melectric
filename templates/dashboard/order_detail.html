@@ -53,12 +53,12 @@
                                                     <th class="pl-0 col-2" scope="row"><strong>Quantity</strong></th>
                                                     <th class="pl-0 col-2" scope="row"><strong>Category</strong></th>                                                    
                                                 </tr>
-                                                {% for product in order.products.all %}
+                                                {% for product in products %}
                                                 <tr>
                                                     <td>{{forloop.counter}}</td>
-                                                    <td>{{ product.product_name }}</td>
-                                                    <td>{{ product. }}</td>
-                                                    <td>{{ product.category }}</td>
+                                                    <td>{{ product.product }}</td>
+                                                    <td>{{ product.quantity }}</td>
+                                                    <td>{{ product.product.category }}</td>
                                                 </tr>
                                                 {% endfor %}                                                
                                             </tbody>
