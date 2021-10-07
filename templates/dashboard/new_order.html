@@ -30,7 +30,15 @@
                     New order
                 </div>
                 <div class="card-body">
-
+                    
+                    {% if message_successfull %}
+                    
+                    <div class="alert alert-info">
+                        <h5>{{ message_successfull}}</h5>
+                    </div>
+                    
+                    {% endif %}
+                    
                     <form method="POST" class="needs-validation" novalidate>
                         {% csrf_token %}
                         <div class="form-group">
@@ -100,9 +108,9 @@
         selectedOption.value = ""
         selectedOption.disabled = true
         selectedOption.selected = true
-
+        
         d.appendChild(selectedOption)
-
+        
         // d.options[d.options.length] = new Option("-- select a product --")
         {% for product in list_products %}
         d.options[d.options.length] = new Option("{{product.product_name}}","{{product.id}}")

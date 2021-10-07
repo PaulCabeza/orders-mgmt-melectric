@@ -12,7 +12,10 @@ from .forms import ProductForm, OrderForm
 @login_required
 def order_detail(request, id):
     order = Order.objects.get(pk=id)
-    return render(request, "dashboard/order_detail.html", {})
+    context = {
+        'order': order
+    }
+    return render(request, "dashboard/order_detail.html", context)
 
 
 
@@ -35,13 +38,15 @@ def new_order(request):
         # save m2m products in this order        
         for prod, quan in zip(products, quantities):
             order_form.products.add(prod, through_defaults={'quantity': quan})
-            return redirect('index')
+            message_successfull = "The order has been placed!"
+            # return redirect('index')
         
         context = {
             'description': description,
             'products': products,
             'user': request.user,
             'quantities': quantities,
+            'message_successfull': message_successfull
 
             }
     else:
