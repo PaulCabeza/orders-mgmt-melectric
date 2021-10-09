@@ -60,12 +60,12 @@
                                 <label for="formGroupExampleInput">Quantity</label>
                                 <input type="number" class="form-control" placeholder="" name="quantities" required>
                             </div>
-                            <div class="col-2">
-                                <br>
+                            <div class="col-2 align-bottom">
+                                <!-- <br>
                                 <a href="#" class="btn btn-danger a-btn-slide-text pd-0">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     <span><strong>Delete</strong></span>            
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                         
@@ -143,8 +143,9 @@
         col3 = document.createElement("div")
         col3.setAttribute("class", "col-2")
         
-        br = document.createElement("br")        
-        
+        br = document.createElement("hr")
+        br.setAttribute("style", "border-color:white")
+                
         span1 = document.createElement("span")
         span1.setAttribute("class", "glyphicon glyphicon-remove")
         span1.setAttribute("aria-hidden", "true")
@@ -162,7 +163,7 @@
         adelete.appendChild(span1)
         adelete.appendChild(span2)
         
-        col3.appendChild(br)
+        col3.appendChild(br)        
         col3.appendChild(adelete)
         
         row.appendChild(col1)
