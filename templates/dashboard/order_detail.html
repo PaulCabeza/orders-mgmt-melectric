@@ -42,8 +42,10 @@
                                 <h5>{{order.description}}</h5>
                                 <p class="mb-2 text-muted text-uppercase small">Status: {{order.status}}</p>
                                 <p><span class="mr-1">Owner: {{order.user.first_name}} {{order.user.last_name}} </span></p>
-                                <p><span class="mr-1">Date: {{order.created}} </span></p>
+                                <p><span class="mr-1">Created: {{order.created}} </span></p>
+                                
                                 <p class="pt-1">Products:</p>
+                                <hr>
                                     <div class="table-responsive">
                                         <table class="table table-sm table-borderless mb-0">
                                             <tbody>
@@ -67,9 +69,7 @@
                                     <hr>
                                     <div class="table-responsive mb-2">                    
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>
-                                    <button type="button" class="btn btn-light btn-md mr-1 mb-2"><i
-                                        class="fas fa-shopping-cart pr-2"></i>Add to cart</button>
+                                    <a href="{% url 'index' %}" type="button" class="btn btn-primary btn-md mr-1 mb-2">Go back</a>
                                     </div>
                                 </div>
                                 

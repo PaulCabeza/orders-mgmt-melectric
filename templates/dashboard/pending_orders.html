@@ -7,14 +7,14 @@
                     Menu
                 </div>
                 <div class="card-body">                    
-                    <a class="btn btn-info btn-block" href="{% url 'new-order' %}">Place a new order</a>
+                    <a class="btn btn-info btn-block" href="">Pending Orders</a>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header">
-                    My orders
+                    Pending Orders
                 </div>
                 <div class="card-body">
                     <table class="table bg-white">
@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for order in orders_list %}                                
+                            {% for order in pending_orders %}                                
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td><a href="{% url 'order-detail' order.id %}">{{ order.description }}</a></td>

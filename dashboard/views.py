@@ -3,6 +3,8 @@ from django.db.models.query_utils import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+import user
 # Custom import files
 from .models import Order, Product, ThroughModel
 from .forms import ProductForm, OrderForm
@@ -56,25 +58,13 @@ def new_order(request):
 
     return render(request, 'dashboard/new_order.html',context)
 
-# @login_required
-# def new_order(request, user):
-#     if request.method == 'POST':
-#         form = OrderForm(request.POST)
-#     else:
-#         form = OrderForm()
-    
-#     context = {
-#         'form': form,
-#         'user': user,
-#     }
-
-#     return render(request, 'dashboard/new_order.html', context)
-
 @login_required
 def index(request):
-    orders_list = Order.objects.all()
+    orders_list = Order.objects.filter(user=request.user).order_by('-created')
+    pending_orders = Order.objects.filter(status='Pending')
     context = {
         'orders_list': orders_list,
+        'pending_orders': pending_orders,
     }
     return render(request, 'dashboard/index.html', context)
 

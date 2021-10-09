@@ -8,7 +8,9 @@ from .forms import MyCustomUserCreationForm
 def register(request):
     if request.method == 'POST':
         form = MyCustomUserCreationForm(request.POST)
+        # form.clean_email(request.POST['email'])
         if form.is_valid:
+            # form.clean_email()
             form.save()
             return redirect('login')
 
