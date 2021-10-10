@@ -2,11 +2,22 @@
 {% block title %} Products Page {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-{% include 'partials/topnav.html' %}
+
     <!--Table-->
     <div class="container">
         <div class="row my-4">
             <div class="col-md-3">
+
+                <div class="card">
+                    <div class="card-header">
+                        Menu
+                    </div>
+                    <div class="card-body">                    
+                        <a class="btn btn-info btn-block" href="{% url 'index' %}">Home</a>
+                    </div>
+                    
+                </div>
+
                 <div class="border bg-white p-3">
                     <h4>Add Products</h4>
                     <hr>
@@ -45,7 +56,7 @@
                 </table>
             </div>
         </div>
-
+        
     </div>
 
 
