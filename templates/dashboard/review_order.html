@@ -33,28 +33,39 @@
                         <label for="formGroupExampleInput">Order description</label>
                         <input type="text" class="form-control" id="validationCustom01" name="description" value="{{ order.description }}" required>
                     </div>
+                    
                     {% for product in products %}
                     <div class="row">
                         <div class="col-7">
                             <label for="formGroupExampleInput">Product</label>                            
                             <select class="form-control" name="products" required>
-                                <!-- <option disabled selected value> -- select a product -- </option> -->
                                 {% for prod in all_products %}
-                                    {% if product.id == prod.id %}
-                                    <option value="{{product.id}}">{{product.product_name}}</option>
-                                    {% endif %}
-
-                                {% endfor %}
-
-                                <option value="{{product.id}}">{{product.product_name}}</option>                                
+                                
+                                {% if prod.id == product.product.id %}
+                                <option value="{{prod.id}}" selected>{{prod.product_name}}</option>
+                                {% else %}
+                                <option value="{{prod.id}}">{{prod.product_name}}</option>
+                                {% endif %}
+                                
+                                {% endfor %}                                
+                                
                             </select>                            
                         </div>
+                        <input type="hidden" name="" value="{{forloop.counter}}">                        
                         <div class="col-3">
                             <label for="formGroupExampleInput">Quantity</label>
-                            <input type="number" class="form-control" placeholder="" name="quantities" required>
+                            <input type="number" class="form-control" value="{{product.quantity}}" name="quantities" required>
                         </div>
-                        <div class="col-2 align-bottom">                              
+                        {% if forloop.counter != 1 %}
+                        <div class="col-2 align-bottom">
+                            <hr style="border-color: white;">
+                            <a href="#" class="btn btn-danger a-btn-slide-text pd-0" onclick="delete_row(this)">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                <span><strong>Delete</strong></span>            
+                            </a>                            
                         </div>
+                        {%endif%}
+
                     </div>
                     {% endfor %}                      
                     
@@ -63,9 +74,8 @@
                     <br>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="submit" class="btn btn-success">Approve</button>                            
-<!-- <button type="button" onclick="moreProductsFields()" class="btn btn-secondary">Add product</button> -->
+                            <a type="button" class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
+                            <button type="submit" class="btn btn-success">Approve</button>                                                        
                         </div>
                     </div>                        
                 </form>
