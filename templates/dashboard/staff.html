@@ -2,48 +2,73 @@
 {% block title %} Staff Page {% endblock %}
 
 {% block content %}
-{% include 'partials/topnav.html' %}
-    <!--Table-->
-    <div class="container">
-        <div class="row my-4">
-            <div class="col-md-3"></div>
-            <div class="col-md-9">
-                <table class="table bg-white">
-                    <thead class="bg-info">
-                        <tr class="text-white">
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Orders</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for user in user_list %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.first_name}} {{ user.last_name }}</td>
-                            <td>{{ user.username }}</td>
-                            {% if user.is_staff and user.is_superuser %}
-                            <td>Admin</td>                            
-                            {% elif user.is_staff%}
-                            <td>Supervisor</td>
-                            {% else %}
-                            <td>Staff</td>
-                            {% endif %}
-                            <td><a class="" href="">View Orders</a></td>
-                            <td scope="row"><a class="btn btn-info btn-sm" href="">View</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Menu
+                </div>
+                <div class="card-body">                    
+                    <a class="btn btn-info btn-block" href="{% url 'index' %}">Pending Orders</a>
+                </div>
+                <div class="card-body">                    
+                    <a class="btn btn-info btn-block" href="{% url 'all-orders' %}">All Orders</a>
+                </div>
+                <div class="card-body">                    
+                    <a class="btn btn-info btn-block" href="{% url 'products' %}">Products</a>
+                </div>
+                <div class="card-body">                    
+                    <a class="btn btn-dark btn-block">Staff</a>
+                </div>
             </div>
         </div>
 
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    All Staff Members
+                </div>
+                <div class="card-body">
+
+                    <table class="table bg-white">
+                        <thead class="bg-info">
+                            <tr class="text-white">
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Orders</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in user_list %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.first_name}} {{ user.last_name }}</td>
+                                <td>{{ user.username }}</td>
+                                {% if user.is_staff and user.is_superuser %}
+                                <td>Admin</td>                            
+                                {% elif user.is_staff%}
+                                <td>Supervisor</td>
+                                {% else %}
+                                <td>Staff</td>
+                                {% endif %}
+                                <td><a class="" href="">View Orders</a></td>
+                                <td scope="row"><a class="btn btn-info btn-sm" href="">View</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
 
-
-    <!--End Table-->
+<!--End Table-->
 {% endblock %}

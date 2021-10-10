@@ -11,6 +11,13 @@ from .forms import ProductForm, OrderForm
 
 # Create your views here.
 
+
+'''
+Render all orders from recent to olders
+'''
+def all_orders(request):
+    return render(request, 'dashboard/all_orders.html')
+
 @login_required
 def order_detail(request, id):
     order = Order.objects.get(pk=id)
