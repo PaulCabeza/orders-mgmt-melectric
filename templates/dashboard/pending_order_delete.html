@@ -1,0 +1,32 @@
+{% extends 'partials/base.html' %}
+{% block title %} Delete order {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            
+            <div class="border bg-white p-3">
+                <h3>Delete Order</h3>
+                <hr>
+                <div class="alert alert-danger">
+                    <h5>Are you sure you want to delete the order? </h5>
+                </div>
+                <div class="container">
+                    <h6>{{order.description}}</h6>
+                    <br>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}                    
+                    <a class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
+                    <input type="hidden" name="hidden" value="success">
+                    <input class="btn btn-danger" type="submit" value="Confirm">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
