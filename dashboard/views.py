@@ -11,46 +11,6 @@ from .forms import ProductForm, OrderForm
 
 # Create your views here.
 
-@login_required
-def index(request):
-    # success = 0
-    # if request.GET['message']:
-    #     success = 1
-    # else:
-    #     success = 0
-
-    orders_list = Order.objects.filter(user=request.user).order_by('-created')
-    pending_orders = Order.objects.filter(status='Pending')
-    context = {
-        'orders_list': orders_list,
-        'pending_orders': pending_orders,
-        # 'success': success,       
-    }
-    return render(request, 'dashboard/index.html', context)
-
-@login_required
-def pending_order_delete(request, order_id):
-    order = Order.objects.get(pk=order_id)
-    if request.method == 'POST':
-        order.delete()
-        # response = redirect('index')
-        # response['Location'] += '?message=success'
-        # return response
-        return redirect('index')
-    context = {
-        'order': order,
-    }
-    return render(request, 'dashboard/pending_order_delete.html', context)
-
-
-'''
-Render all orders from recent to olders
-'''
-@login_required
-def all_orders(request):
-    all_orders = Order.objects.all().order_by('-created')
-    return render(request, 'dashboard/all_orders.html', {'all_orders':all_orders})
-
 '''
 Render order details for employee
 '''
@@ -100,6 +60,58 @@ def new_order(request):
         }
 
     return render(request, 'dashboard/new_order.html',context)
+
+@login_required
+def review_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    products = ThroughModel.objects.filter(order=order.id)
+    all_products = Product.objects.all()
+    context = {
+        'order':order,
+        'products': products,
+        'all_products': all_products,
+    }
+    return render(request, 'dashboard/review_order.html', context)
+
+@login_required
+def index(request):
+    # success = 0
+    # if request.GET['message']:
+    #     success = 1
+    # else:
+    #     success = 0
+
+    orders_list = Order.objects.filter(user=request.user).order_by('-created')
+    pending_orders = Order.objects.filter(status='Pending')
+    context = {
+        'orders_list': orders_list,
+        'pending_orders': pending_orders,
+        # 'success': success,       
+    }
+    return render(request, 'dashboard/index.html', context)
+
+@login_required
+def pending_order_delete(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    if request.method == 'POST':
+        order.delete()
+        # response = redirect('index')
+        # response['Location'] += '?message=success'
+        # return response
+        return redirect('index')
+    context = {
+        'order': order,
+    }
+    return render(request, 'dashboard/pending_order_delete.html', context)
+
+
+'''
+Render all orders from recent to olders
+'''
+@login_required
+def all_orders(request):
+    all_orders = Order.objects.all().order_by('-created')
+    return render(request, 'dashboard/all_orders.html', {'all_orders':all_orders})
 
 
 
