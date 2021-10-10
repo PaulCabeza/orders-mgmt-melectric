@@ -32,6 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'pedidosmelectric.herokuapp.com',
+    'localhost:8000',
+    'localhost',
 ]
 
 
