@@ -3,6 +3,7 @@ from django.db.models.query_utils import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 import user
 # Custom import files
@@ -10,6 +11,39 @@ from .models import Order, Product, ThroughModel
 from .forms import ProductForm, OrderForm
 
 # Create your views here.
+
+@login_required
+def review_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    products = ThroughModel.objects.filter(order=order.id)
+    all_products = Product.objects.all()
+    '''
+    save approved order with any modification
+    '''
+    if request.method == 'POST':
+        description = request.POST['description']
+        # get the list of products from html
+        products = request.POST.getlist('products')
+        quantities = request.POST.getlist('quantities')
+        # fetch the order object to save a record
+        order_form = Order.objects.get(pk=order_id)
+        order_form.description = description
+        order_form.status = 'Approved'        
+        order_form.approval_date = timezone.now()
+        order_form.save()
+        return redirect('index')
+        # save m2m products in this order        
+        # for prod, quan in zip(products, quantities):
+        #     order_form.products.add(prod, through_defaults={'quantity': quan})
+        #     message_successfull = "The order has been placed!"
+        #     # return redirect('index')
+    
+    context = {
+        'order':order,
+        'products': products,
+        'all_products': all_products,
+    }
+    return render(request, 'dashboard/review_order.html', context)
 
 '''
 Render order details for employee
@@ -61,17 +95,7 @@ def new_order(request):
 
     return render(request, 'dashboard/new_order.html',context)
 
-@login_required
-def review_order(request, order_id):
-    order = Order.objects.get(pk=order_id)
-    products = ThroughModel.objects.filter(order=order.id)
-    all_products = Product.objects.all()
-    context = {
-        'order':order,
-        'products': products,
-        'all_products': all_products,
-    }
-    return render(request, 'dashboard/review_order.html', context)
+
 
 @login_required
 def index(request):
