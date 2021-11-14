@@ -9,32 +9,32 @@
             <div class="col-md-3">               
 
                 <div class="border bg-white p-3">
-                    <h4>Add Products</h4>
+                    <h4>Add Categories</h4>
                     <hr>
                     <form method="POST">
                         {% csrf_token %}
                         {{ form|crispy }}                        
 
-                        <input class="btn btn-success btn-block" type="submit" value="Add Product">
+                        <input class="btn btn-success btn-block" type="submit" value="Add">
                     </form>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-6">
                 <table class="table bg-white">
                     <thead class="bg-info">
                         <tr class="text-white">
                             <th scope="col" class="col-1" >#</th>
-                            <th scope="col" class="col-6">Name</th>
-                            <th scope="col" class="col-2">Category</th>                            
-                            <th scope="col" class="col-2">Activity</th>
+                            
+                            <th scope="col" class="col-3">Category</th> 
+                            <th scope="col" class="col-1">Actions</th> 
+                            
                         </tr>
                     </thead>
                     <tbody>
-                    {% for product in products_list %}
+                    {% for category in categories_list %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ product.product_name }}</td>
-                            <td>{{ product.category }}</td>
+                            <td>{{ category.category_name }}</td>                          
                             
                             <td>
                                 <a class="btn btn-info btn-sm" href="{% url 'product-update' product.id %}">Edit</a>
