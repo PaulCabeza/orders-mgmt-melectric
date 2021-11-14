@@ -6,11 +6,32 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 import user
+
 # Custom import files
-from .models import Order, Product, ThroughModel
-from .forms import ProductForm, OrderForm
+from .models import Order, Product, ThroughModel, Category
+from .forms import CategoryForm, ProductForm, OrderForm
 
 # Create your views here.
+
+@login_required
+def categories(request):
+    """Render all categories from DB"""
+    categories_list = Category.objects.all()
+    # determine if sent to save the info or only render the blank form
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('products')
+    else:
+        form = CategoryForm()
+
+    context = {
+        'categories_list': categories_list,
+        'form': form,
+    }
+    return render(request, 'dashboard/categories.html', context)
+
 
 @login_required
 def review_order(request, order_id):

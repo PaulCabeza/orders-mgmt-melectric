@@ -3,17 +3,25 @@ from django import forms
 from django.forms import fields
 from django.contrib import admin
 # from django.db.models import fields
-from .models import Product, Order
+from .models import Category, Product, Order
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['product_name','category']
 
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['description', 'products', 'user']
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['category_name',]
+
 
     # products = forms.ModelMultipleChoiceField(
     #     queryset = Product.objects.all(),
