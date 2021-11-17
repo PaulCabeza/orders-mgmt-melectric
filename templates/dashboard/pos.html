@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% block title %} Purchase Orders {% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <!--Table-->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-3">               
+
+                <div class="border bg-white p-3">
+                    <h4>Purchase Orders</h4>
+                    <hr>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}                        
+
+                        <input class="btn btn-success btn-block" type="submit" value="Add">
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col" class="col-1" >#</th>
+                            
+                            <th scope="col" class="col-6">PO Number</th> 
+                            <th scope="col" class="col-1">Actions</th> 
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories_list %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ category.category_name }}</td>                          
+                            
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'category-update' category.id %}">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{% url 'category-delete' category.id %}">Del</a>
+                            </td>
+                        </tr>
+                    {% endfor %}                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+    <!--End Table-->
+{% endblock %}

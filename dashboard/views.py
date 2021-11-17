@@ -14,6 +14,11 @@ from .forms import CategoryForm, ProductForm, OrderForm
 # Create your views here.
 
 @login_required
+def pos(request):
+    context = {}
+    return render(request, 'dashboard/pos.html', context)
+
+@login_required
 def categories(request):
     """Render all categories from DB"""
     categories_list = Category.objects.all()

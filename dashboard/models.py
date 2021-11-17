@@ -10,6 +10,10 @@ STATUS = (
 	('Approved','Approved'),
 )
 
+class Po(models.Model):
+	po_number = models.PositiveIntegerField(null=True, default=0)
+	created = models.DateTimeField(auto_now_add=True)
+
 class PedidosUser(models.Model):
 	email = models.EmailField('Email')
 	user = models.CharField('User', max_length=50)
