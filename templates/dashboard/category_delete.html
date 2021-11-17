@@ -7,20 +7,20 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-6 offset-md-3">
-            {% if delete_product %}
+            {% if delete_category %}
             <div class="border bg-white p-3">
-                <h3>Delete Item</h3>
+                <h3>Delete Category</h3>
                 <hr>
                 <div class="alert alert-danger">
-                    <h4>Are you sure you want to delete the item? </h4>
+                    <h4>Are you sure you want to delete the category? </h4>
                 </div>
                 <div class="container">
-                    <h6>{{product.product_name}}</h6>
+                    <h6>{{category.category_name}}</h6>
                     <br>
                 </div>
                 <form method="POST">
                     {% csrf_token %}                    
-                    <a class="btn btn-secondary" href="{% url 'products' %}">Cancel</a>
+                    <a class="btn btn-secondary" href="{% url 'categories' %}">Cancel</a>
                     <input class="btn btn-danger" type="submit" value="Confirm">
                 </form>
             </div>
@@ -30,15 +30,15 @@
                 <h3>Delete Item</h3>
                 <hr>
                 <div class="alert alert-warning">
-                    <h5>Cannot delete item, because is present in orders, please delete related orders first. </h5>
+                    <h5>Cannot delete Category, because it has related products, please delete related products first. </h5>
                 </div>
                 <div class="container">
-                    <h6>{{product.product_name}}</h6>
+                    <h6>{{category.category_name}}</h6>
                     <br>
                 </div>
                 <form method="POST">
                     {% csrf_token %}                    
-                    <a class="btn btn-info" href="{% url 'products' %}">Go Back</a>                    
+                    <a class="btn btn-info" href="{% url 'categories' %}">Go Back</a>                    
                 </form>
             </div>
             

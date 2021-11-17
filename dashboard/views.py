@@ -22,7 +22,7 @@ def categories(request):
         form = CategoryForm(request.POST)
         if form.is_valid:
             form.save()
-            return redirect('products')
+            return redirect('categories')
     else:
         form = CategoryForm()
 
@@ -35,14 +35,14 @@ def categories(request):
 @login_required
 def category_update(request, category_id):
     """ determine if receive data to render the product info to edit """
-    item = Product.objects.get(id=category_id)
+    item = Category.objects.get(id=category_id)
     if request.method == 'POST':
-        form = ProductForm(request.POST, instance=item)
+        form = CategoryForm(request.POST, instance=item)
         if form.is_valid:
             form.save()
-            return redirect('products')
+            return redirect('categories')
     else:
-        form = ProductForm(instance=item)
+        form = CategoryForm(instance=item)
     # creating the context dictionary ready to be sent to the view
     context = {
         'form': form
@@ -51,24 +51,22 @@ def category_update(request, category_id):
 
 @login_required
 def category_delete(request, category_id):
-    """Check if product in orders"""    
-    order = Order.objects.filter(products=category_id)    
+    """Check if product in categories"""    
+    order = Product.objects.filter(category=category_id)    
     if order:
-        delete_product = 0
+        delete_category = 0
     else:
-        delete_product = 1
-    '''
-    get the product info from DB using the ORM
-    '''
-    product = Product.objects.get(id=category_id)
+        delete_category = 1
+    # get the product info from DB using the ORM    
+    category = Category.objects.get(id=category_id)
     if request.method == 'POST':
-        product.delete()
-        return redirect('products')
+        category.delete()
+        return redirect('categories')
     context = {
-        'product': product,
-        'delete_product': delete_product,
+        'category': category,
+        'delete_category': delete_category,
     }
-    return render(request, 'dashboard/product_delete.html', context)
+    return render(request, 'dashboard/category_delete.html', context)
 
 @login_required
 def review_order(request, order_id):
