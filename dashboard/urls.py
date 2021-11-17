@@ -14,4 +14,6 @@ urlpatterns = [
     path('pending-order-delete/<int:order_id>', views.pending_order_delete, name='pending-order-delete'),
     path('review-order/<int:order_id>', views.review_order, name='review-order'),
     path('categories', views.categories, name='categories'),
+    path('category-delete/<int:category_id>', views.category_delete, name='category-delete'),
+    path('category-update/<int:category_id>', views.category_update, name='category-update'),
 ]

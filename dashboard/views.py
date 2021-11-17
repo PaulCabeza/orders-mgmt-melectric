@@ -32,6 +32,43 @@ def categories(request):
     }
     return render(request, 'dashboard/categories.html', context)
 
+@login_required
+def category_update(request, category_id):
+    """ determine if receive data to render the product info to edit """
+    item = Product.objects.get(id=category_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=item)
+        if form.is_valid:
+            form.save()
+            return redirect('products')
+    else:
+        form = ProductForm(instance=item)
+    # creating the context dictionary ready to be sent to the view
+    context = {
+        'form': form
+    }
+    return render(request, 'dashboard/category_update.html', context)
+
+@login_required
+def category_delete(request, category_id):
+    """Check if product in orders"""    
+    order = Order.objects.filter(products=category_id)    
+    if order:
+        delete_product = 0
+    else:
+        delete_product = 1
+    '''
+    get the product info from DB using the ORM
+    '''
+    product = Product.objects.get(id=category_id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('products')
+    context = {
+        'product': product,
+        'delete_product': delete_product,
+    }
+    return render(request, 'dashboard/product_delete.html', context)
 
 @login_required
 def review_order(request, order_id):
@@ -119,13 +156,7 @@ def new_order(request):
 
 
 @login_required
-def index(request):
-    # success = 0
-    # if request.GET['message']:
-    #     success = 1
-    # else:
-    #     success = 0
-
+def index(request):    
     orders_list = Order.objects.filter(user=request.user).order_by('-created')
     pending_orders = Order.objects.filter(status='Pending')
     context = {
@@ -169,6 +200,7 @@ def staff(request):
     }
     return render(request, 'dashboard/staff.html', context)
 
+@login_required
 def product_update(request, product_id):
     # determine if receive data to render the product info to edit
     item = Product.objects.get(id=product_id)
