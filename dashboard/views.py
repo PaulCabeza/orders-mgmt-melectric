@@ -8,14 +8,32 @@ from django.utils import timezone
 import user
 
 # Custom import files
-from .models import Order, Product, ThroughModel, Category
-from .forms import CategoryForm, ProductForm, OrderForm
+from .models import Order, Po, Product, ThroughModel, Category
+from .forms import CategoryForm, ProductForm, OrderForm, PoForm
 
 # Create your views here.
 
 @login_required
 def pos(request):
-    context = {}
+    """Render all POs from DB"""
+    pos_list = Po.objects.all()
+    # determine if sent to save the info or only render the blank form
+    if request.method == 'POST':
+        form = PoForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('pos')
+    else:
+        if pos_list:
+            #me quede tratando de extraer el 5to y 6to numero de la po anterior, validar que estamos en el mismo mes y generar el sig
+            actual_month = 0
+            new_po_number = 0
+        form = PoForm()
+
+    context = {
+        'pos_list': pos_list,
+        'form': form,
+    }
     return render(request, 'dashboard/pos.html', context)
 
 @login_required

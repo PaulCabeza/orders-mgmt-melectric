@@ -40,7 +40,8 @@ class Product(models.Model):
 
 class Order(models.Model):
 	description = models.CharField('Order Description', max_length=100)
-	status = models.CharField('Status', max_length=50, choices=STATUS)	
+	status = models.CharField('Status', max_length=50, choices=STATUS)
+	po = models.ForeignKey(Po, blank=True, null=True, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 	products = models.ManyToManyField(Product, blank=True, through='ThroughModel')
 	created = models.DateTimeField(auto_now_add=True)
