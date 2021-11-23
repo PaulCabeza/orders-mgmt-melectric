@@ -264,7 +264,7 @@ def product_delete(request, product_id):
 @login_required
 def products(request):
     # render all products from the DB
-    products_list = Product.objects.all()
+    products_list = Product.objects.all().order_by('-id')
     # determine if sent to save the info or only render the blank form
     if request.method == 'POST':
         form = ProductForm(request.POST)
