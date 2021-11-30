@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+# import pagination needed
+from django.core.paginator import Paginator
+
 import user
 
 # Custom import files
@@ -264,7 +267,15 @@ def product_delete(request, product_id):
 @login_required
 def products(request):
     # render all products from the DB
+    # products_list = Product.objects.all().order_by('-id')
     products_list = Product.objects.all().order_by('-id')
+
+    #setting up pagination
+    products_paginator = Paginator(Product.objects.all().order_by('-id'), 10)
+    requested_page = request.GET.get('page')
+    all_products = products_paginator.get_page(requested_page)
+    
+
     # determine if sent to save the info or only render the blank form
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -277,5 +288,6 @@ def products(request):
     context = {
         'products_list': products_list,
         'form': form,
+        'all_products': all_products
     }
     return render(request, 'dashboard/products.html', context)
