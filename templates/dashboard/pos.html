@@ -52,14 +52,10 @@
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
-                        </div>                           
-                        
-                        
-                    </div>
-                    
+                        </div>
+                    </div>                    
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-info btn-block">Filter POs</button>
-                        
+                        <button type="button" class="btn btn-info btn-block">Filter POs</button>                        
                     </div> -->
                     
                     <div class="col-md-12">
@@ -82,8 +78,8 @@
                                     <td>{{ po.status }}</td>                   
                                     
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="{% url 'category-update' po.id %}">Edit</a>
-                                        <a class="btn btn-danger btn-sm" href="{% url 'category-delete' po.id %}">Del</a>
+                                        <a class="btn btn-info btn-sm" href="{% url 'po-update' po.id %}">Edit</a>
+                                        <a class="btn btn-danger btn-sm" href="{% url 'po-delete' po.id %}">Del</a>
                                     </td>
                                 </tr>
                                 {% endfor %}      

@@ -20,6 +20,42 @@ import datetime
 # Create your views here.
 
 @login_required
+def po_update(request, po_id):
+    """ determine if receive data to render the product info to edit """
+    item = Po.objects.get(id=po_id)
+    if request.method == 'POST':
+        form = PoForm(request.POST, instance=item)
+        if form.is_valid:
+            form.save()
+            return redirect('categories')
+    else:
+        form = PoForm(instance=item)
+    # creating the context dictionary to be sent to the view
+    context = {
+        'form': form
+    }
+    return render(request, 'dashboard/po_update.html', context)
+
+@login_required
+def po_delete(request, po_id):
+    """Check if po in orders"""    
+    po_in_orders = Order.objects.filter(po=po_id)    
+    if po_in_orders:
+        delete_po = 0
+    else:
+        delete_po = 1
+    # get the product info from DB using the ORM    
+    po = Po.objects.get(id=po_id)
+    if request.method == 'POST':
+        po.delete()
+        return redirect('pos')
+    context = {
+        'po': po,
+        'delete_po': delete_po,
+    }
+    return render(request, 'dashboard/po_delete.html', context)
+
+@login_required
 def pos(request):
 
     new_po_number = 0
