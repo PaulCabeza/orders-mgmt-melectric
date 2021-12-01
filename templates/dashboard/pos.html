@@ -9,133 +9,101 @@
         <div class="col-md-3">               
             
             <div class="border bg-white p-3">
-                <h4>Purchase Orders</h4>
+                <h4>Purchase Orders</h4>    
+                                
                 <hr>
                 <form method="POST">
                     {% csrf_token %}
                     <!-- {{ form|crispy }} -->
                     <div class="form-group">
-                        <Strong>Add a new PO</strong><br>
-                            <label for="formGroupExampleInput">Po #:</label>
-                            <input type="text" class="form-control" id="validationCustom01" value="211104" name="po_number" disabled>
-                        </div>
-                        
-                        <input class="btn btn-success btn-block" type="submit" value="Add">
-                        <button class="btn btn-info btn-block" type="button" >Show all POs</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">
-                        Purchase Orders
+                        <strong>Add a new PO</strong><br>
+                        <label for="formGroupExampleInput">Po #:</label>
+                        <input type="text" class="form-control" id="validationCustom01" value="{{new_po_number}}" disabled>
+                        <input type="hidden" name="new-po-number" value="{{new_po_number}}">
                     </div>
-                    <div class="card-body">
-                        <!-- <label for="exampleInputEmail1">Select the values to show the PO: </label> -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Select Year: </label>
-                                <select class="form-control" aria-label="Default select example">
-                                    <option selected>2021</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Select Month: </label>
-                                <select class="form-control" aria-label="Default select example">
-                                    <option selected>November</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>                           
-                            
-                            
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <button type="button" class="btn btn-info btn-block">Filter POs</button>
-                              
-                        </div>
-                        <br>
-                        <div class="col-md-12">
-                            <table class="table bg-white">
-                                <thead class="bg-info">
-                                    <tr class="text-white">
-                                        <th scope="col" class="col-1" >#</th>
-                                        
-                                        <th scope="col" class="col-5">PO Number</th> 
-                                        <th scope="col" class="col-2">Status</th> 
-                                        <th scope="col" class="col-1">Actions</th> 
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for category in categories_list %}
-                                    <tr>
-                                        <th scope="row">{{ forloop.counter }}</th>
-                                        <td>{{ category.category_name }}</td>                          
-                                        
-                                        <td>
-                                            <a class="btn btn-info btn-sm" href="{% url 'category-update' category.id %}">Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="{% url 'category-delete' category.id %}">Del</a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}      
-
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>211101</td>
-                                        <td>Active</td>
-                                        
-                                        <td class="col-2">
-                                            <a class="btn btn-info btn-sm" href="">Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="">Del</a>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>211102</td>
-                                        <td>Active</td>                          
-                                        
-                                        <td class="col-2">
-                                            <a class="btn btn-info btn-sm" href="">Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="">Del</a>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>211103</td>
-                                        <td>Completed</td>
-                                                                  
-                                        
-                                        <td class="col-2">
-                                            <a class="btn btn-info btn-sm" href="">Edit</a>
-                                            <a class="btn btn-danger btn-sm" href="">Del</a>
-                                        </td>
-                                    </tr>
-
-                                    
-                                    
-                                </tbody>
-                            </table>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                
+                    
+                    <input class="btn btn-success btn-block" type="submit" value="Add">
+                    <button class="btn btn-info btn-block" type="button" >Show all POs</button>
+                </form>
             </div>
         </div>
-        
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    Purchase Orders
+                </div>
+                <div class="card-body">
+                    <!-- <label for="exampleInputEmail1">Select the values to show the PO: </label> -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Select Year: </label>
+                            <select class="form-control" aria-label="Default select example">
+                                <option selected>2021</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Select Month: </label>
+                            <select class="form-control" aria-label="Default select example">
+                                <option selected>November</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>                           
+                        
+                        
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-info btn-block">Filter POs</button>
+                        
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <table class="table bg-white">
+                            <thead class="bg-info">
+                                <tr class="text-white">
+                                    <th scope="col" class="col-1" >#</th>
+                                    
+                                    <th scope="col" class="col-3">PO Number</th> 
+                                    <th scope="col" class="col-3">Status</th> 
+                                    <th scope="col" class="col-2">Actions</th> 
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for po in pos_list %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ po.po_number }}</td>
+                                    <td>{{ po.status }}</td>                   
+                                    
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="{% url 'category-update' po.id %}">Edit</a>
+                                        <a class="btn btn-danger btn-sm" href="{% url 'category-delete' po.id %}">Del</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}      
+                                
+                                
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
     </div>
     
-    
-    
-    <!--End Table-->
-    {% endblock %}
+</div>
+
+
+
+<!--End Table-->
+{% endblock %}

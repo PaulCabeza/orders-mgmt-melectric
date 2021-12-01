@@ -12,7 +12,7 @@ STATUS = (
 
 class Po(models.Model):
 	po_number = models.PositiveIntegerField(null=True, default=0)
-	status = models.CharField('Status', max_length=50, default='Active')
+	status = models.CharField('Status', max_length=50, default='Active', null=True, blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 
 class PedidosUser(models.Model):

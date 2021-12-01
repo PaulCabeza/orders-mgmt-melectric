@@ -14,28 +14,47 @@ import user
 from .models import Order, Po, Product, ThroughModel, Category
 from .forms import CategoryForm, ProductForm, OrderForm, PoForm
 
+#utilities
+import datetime
+
 # Create your views here.
 
 @login_required
 def pos(request):
-    """Render all POs from DB"""
+    new_po_number = 0
+    """Render all Purchase Orders from DB"""
     pos_list = Po.objects.all()
-    # determine if sent to save the info or only render the blank form
-    if request.method == 'POST':
-        form = PoForm(request.POST)
-        if form.is_valid:
-            form.save()
-            return redirect('pos')
-    else:
-        if pos_list:
-            #me quede tratando de extraer el 5to y 6to numero de la po anterior, validar que estamos en el mismo mes y generar el sig
-            actual_month = 0
-            new_po_number = 0
-        form = PoForm()
+    for po in pos_list:
+        last_po = po
+        last_po_number = po.po_number
 
+    # get month from last PO
+    month_last_po = str(last_po_number)[2:4]
+    # get the current month and year
+    current_month = datetime.date.today().month
+    current_year = int(str(datetime.date.today().year)[2:4])
+    # generate new_po_number automatically comparing previous month and current year
+    if int(month_last_po) == current_month:
+        new_po_number = last_po_number + 1
+    else:
+        if int(month_last_po) <= 11:
+            new_po_number = str(current_year) + str(current_month) + '01'
+        else:
+            new_po_number = str(current_year + 1) + str(current_month) + '01'
+
+    if request.method == 'POST':        
+        # Save a new PO
+        new_po = Po()
+        po_number = request.POST.get('new-po-number')              
+        new_po.po_number = po_number
+        new_po.status = 'Active'
+        new_po.save()
+        return redirect('pos')
+        
+    # create the context dict to send to the template
     context = {
         'pos_list': pos_list,
-        'form': form,
+        'new_po_number': new_po_number,        
     }
     return render(request, 'dashboard/pos.html', context)
 
@@ -127,9 +146,6 @@ def review_order(request, order_id):
     }
     return render(request, 'dashboard/review_order.html', context)
 
-'''
-Render order details for employee
-'''
 @login_required
 def order_detail(request, id):
     order = Order.objects.get(pk=id)

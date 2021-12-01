@@ -18,7 +18,7 @@ class OrderForm(forms.ModelForm):
 class PoForm(forms.ModelForm):
     class Meta:
         model = Po
-        fields = ['po_number']
+        fields = ['po_number', 'status']
 
 class CategoryForm(forms.ModelForm):
     class Meta:
