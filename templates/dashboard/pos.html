@@ -13,8 +13,7 @@
                                 
                 <hr>
                 <form method="POST">
-                    {% csrf_token %}
-                    <!-- {{ form|crispy }} -->
+                    {% csrf_token %}                    
                     <div class="form-group">
                         <strong>Add a new PO</strong><br>
                         <label for="formGroupExampleInput">Po #:</label>
@@ -34,7 +33,7 @@
                 </div>
                 <div class="card-body">
                     <!-- <label for="exampleInputEmail1">Select the values to show the PO: </label> -->
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Select Year: </label>
                             <select class="form-control" aria-label="Default select example">
@@ -61,8 +60,8 @@
                     <div class="col-md-4">
                         <button type="button" class="btn btn-info btn-block">Filter POs</button>
                         
-                    </div>
-                    <br>
+                    </div> -->
+                    
                     <div class="col-md-12">
                         <table class="table bg-white">
                             <thead class="bg-info">

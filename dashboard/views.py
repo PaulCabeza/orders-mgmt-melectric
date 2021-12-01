@@ -21,13 +21,17 @@ import datetime
 
 @login_required
 def pos(request):
+
     new_po_number = 0
     """Render all Purchase Orders from DB"""
     pos_list = Po.objects.all()
+    year_list = set()
     for po in pos_list:
         last_po = po
+        # get last po number
         last_po_number = po.po_number
-
+        # get year list
+        
     # get month from last PO
     month_last_po = str(last_po_number)[2:4]
     # get the current month and year
@@ -50,7 +54,7 @@ def pos(request):
         new_po.status = 'Active'
         new_po.save()
         return redirect('pos')
-        
+
     # create the context dict to send to the template
     context = {
         'pos_list': pos_list,
