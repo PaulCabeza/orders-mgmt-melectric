@@ -19,6 +19,8 @@ import datetime
 
 # Create your views here.
 
+#me quede en el po update porque no se puede con un form normal
+
 @login_required
 def po_update(request, po_id):
     """ determine if receive data to render the product info to edit """
@@ -27,7 +29,7 @@ def po_update(request, po_id):
         form = PoForm(request.POST, instance=item)
         if form.is_valid:
             form.save()
-            return redirect('categories')
+            return redirect('pos')
     else:
         form = PoForm(instance=item)
     # creating the context dictionary to be sent to the view
@@ -55,48 +57,7 @@ def po_delete(request, po_id):
     }
     return render(request, 'dashboard/po_delete.html', context)
 
-@login_required
-def pos(request):
 
-    new_po_number = 0
-    """Render all Purchase Orders from DB"""
-    pos_list = Po.objects.all()
-    year_list = set()
-    for po in pos_list:
-        last_po = po
-        # get last po number
-        last_po_number = po.po_number
-        # get year list
-        
-    # get month from last PO
-    month_last_po = str(last_po_number)[2:4]
-    # get the current month and year
-    current_month = datetime.date.today().month
-    current_year = int(str(datetime.date.today().year)[2:4])
-    # generate new_po_number automatically comparing previous month and current year
-    if int(month_last_po) == current_month:
-        new_po_number = last_po_number + 1
-    else:
-        if int(month_last_po) <= 11:
-            new_po_number = str(current_year) + str(current_month) + '01'
-        else:
-            new_po_number = str(current_year + 1) + str(current_month) + '01'
-
-    if request.method == 'POST':        
-        # Save a new PO
-        new_po = Po()
-        po_number = request.POST.get('new-po-number')              
-        new_po.po_number = po_number
-        new_po.status = 'Active'
-        new_po.save()
-        return redirect('pos')
-
-    # create the context dict to send to the template
-    context = {
-        'pos_list': pos_list,
-        'new_po_number': new_po_number,        
-    }
-    return render(request, 'dashboard/pos.html', context)
 
 @login_required
 def categories(request):
@@ -331,7 +292,6 @@ def products(request):
     requested_page = request.GET.get('page')
     all_products = products_paginator.get_page(requested_page)
     
-
     # determine if sent to save the info or only render the blank form
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -347,3 +307,64 @@ def products(request):
         'all_products': all_products
     }
     return render(request, 'dashboard/products.html', context)
+
+@login_required
+def pos(request):
+    new_po_number = 0
+    """Render all Purchase Orders from DB"""
+    pos_list = Po.objects.all().order_by('id')
+    last_po = Po.objects.all().last()
+    last_po_number = last_po.po_number   
+
+    #setting up pagination
+    pos_paginator = Paginator(Po.objects.all(), 10)
+    requested_page = request.GET.get('page')
+    all_pos = pos_paginator.get_page(requested_page)
+
+    # create the dict with months and years with POs
+    year_months_dict = list()
+    years = list()
+    
+    years = set(years)
+    years = list(years)
+
+    months = list()
+
+    for po in pos_list:
+        # add related months
+        for year in years:
+            if str(po.po_number)[0:2] == year:
+                months.append(str(po.po_number)[2:4])
+                # me quede tratando de pasar la lista de matrices con los years and months
+    
+        
+    # get month from last PO
+    month_last_po = str(last_po_number)[2:4]
+    # get the current month and year
+    current_month = datetime.date.today().month
+    current_year = int(str(datetime.date.today().year)[2:4])
+    # generate new_po_number automatically comparing previous month and current year
+    if int(month_last_po) == current_month:
+        new_po_number = last_po_number + 1
+    else:
+        if int(month_last_po) <= 11:
+            new_po_number = str(current_year) + str(current_month) + '01'
+        else:
+            new_po_number = str(current_year + 1) + str(current_month) + '01'
+
+    if request.method == 'POST':        
+        # Save a new PO
+        new_po = Po()
+        po_number = request.POST.get('new-po-number')              
+        new_po.po_number = po_number
+        new_po.status = 'Active'
+        new_po.save()
+        return redirect('pos')
+
+    # create the context dict to send to the template
+    context = {
+        'pos_list': pos_list,
+        'new_po_number': new_po_number,
+        'all_pos': all_pos,
+    }
+    return render(request, 'dashboard/pos.html', context)
