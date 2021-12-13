@@ -19,22 +19,23 @@ import datetime
 
 # Create your views here.
 
-#me quede en el po update porque no se puede con un form normal
-
 @login_required
 def po_update(request, po_id):
-    """ determine if receive data to render the product info to edit """
+    # determine if receive data to render the product info to edit
     item = Po.objects.get(id=po_id)
     if request.method == 'POST':
-        form = PoForm(request.POST, instance=item)
-        if form.is_valid:
-            form.save()
-            return redirect('pos')
-    else:
-        form = PoForm(instance=item)
+        item.status = request.POST.get('status', False)
+        item.save()
+        # form = PoForm(request.POST, instance=item)        
+        # if form.is_valid:
+        #     form.save()
+        return redirect('pos')
+    # else:
+    #     form = PoForm(instance=item)
     # creating the context dictionary to be sent to the view
     context = {
-        'form': form
+        # 'form': form,
+        'po': item, 
     }
     return render(request, 'dashboard/po_update.html', context)
 
