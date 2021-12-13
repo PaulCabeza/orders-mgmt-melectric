@@ -46,50 +46,62 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Select PO: </label>
                                 <select class="form-control" aria-label="Default select example">                                    
-                                    <option value="1">210703</option>
-                                    <option value="1">210801</option>
-                                    <option value="1">210802</option>
-                                    <option value="1">210901</option>
-                                    <option value="1">210902</option>
-                                    <option value="1">211001</option>
-                                    <option value="1">211002</option>
-                                    <option value="1">211101</option>
-                                    <option value="2">211102</option>                                    
-                                    <option selected>211104</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Order description</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="Enter the description, ex: Order for customer #123" name="description" required>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-7">
-                                <label for="formGroupExampleInput">Product</label>
-                                <select class="form-control" name="products" required>
-                                    <option disabled selected value> -- select a product -- </option>
-                                    {% for product in list_products%}
-                                    <option value="{{product.id}}">{{product.product_name}}</option>                                    
+                                    {% for active_po in active_pos %}                                    
+                                    <option value="{{active_po.id}}">{{ active_po.po_number }}</option>                                   
+                                    
+                                    <!-- <option selected>211104</option> -->
                                     {% endfor %}
+
                                 </select>
                             </div>
-                            <div class="col-3">
-                                <label for="formGroupExampleInput">Quantity</label>
-                                <input type="number" class="form-control" placeholder="" name="quantities" required>
+                        </div>
+
+                        
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Order description</label>
+                                <input type="text" class="form-control" id="validationCustom01" placeholder="Enter the description, ex: Order for customer #123" name="description" required>
                             </div>
-                            <div class="col-2 align-bottom">
-                                <!-- <br>
-                                    <a href="#" class="btn btn-danger a-btn-slide-text pd-0">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                        <span><strong>Delete</strong></span>            
-                                    </a> -->
-                                </div>
-                            </div>                            
                             
-                            <div id="moreproducts">
+                            
+                        </div>
+                        
+                        <div class="col-md-7">
+
+                            <div class="row">
+                                <div class="col-7">
+                                    <label for="formGroupExampleInput">Product</label>
+                                    <select class="form-control" name="products" required>
+                                        <option disabled selected value> -- select a product -- </option>
+                                        {% for product in list_products%}
+                                        <option value="{{product.id}}">{{product.product_name}}</option>                                    
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label for="formGroupExampleInput">Quantity</label>
+                                    <input type="number" class="form-control" placeholder="" name="quantities" required>
+                                </div>
+                                <!-- <div class="col-2 align-bottom">
+    
+                                    <br>
+                                        <a href="#" class="btn btn-danger a-btn-slide-text pd-0">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            <span><strong>Delete</strong></span>            
+                                        </a>
+                                </div> -->
+                            </div>    
+                            
+                            <div id="moreproducts">                                
+                                
                             </div>
+
+                        </div>
+
+                                               
+                            
+                            
                             <br>
                             <div class="form-group row">
                                 <div class="col-sm-12">

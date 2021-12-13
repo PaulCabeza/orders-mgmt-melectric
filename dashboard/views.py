@@ -161,6 +161,8 @@ def order_detail(request, id):
 def new_order(request):
 
     list_products = Product.objects.all()
+    active_pos = Po.objects.filter(status='Active').order_by('-id')
+    print(active_pos.values)
     
     if request.method == 'POST':
         description = request.POST['description']
@@ -184,12 +186,13 @@ def new_order(request):
             'products': products,
             'user': request.user,
             'quantities': quantities,
-            'message_successfull': message_successfull
-
+            'message_successfull': message_successfull,
+            'active_pos': active_pos,
             }
     else:
         context = {
             'list_products': list_products,
+            'active_pos': active_pos,
         }
 
     return render(request, 'dashboard/new_order.html',context)
