@@ -162,16 +162,24 @@ def new_order(request):
 
     list_products = Product.objects.all()
     active_pos = Po.objects.filter(status='Active').order_by('-id')
-    print(active_pos.values)
+    
     
     if request.method == 'POST':
         description = request.POST['description']
+        # purchase_order = request.POST['purchase_order']
         # get the list of products from html
         products = request.POST.getlist('products')
         quantities = request.POST.getlist('quantities')
+        purchase_orders = request.POST.getlist('purchase_order')
+        for pio in purchase_orders:
+            pio = int(pio)
+        
+        purchase_order = Po.objects.get(id=pio)
+
         # create the order object to save a record
         order_form = Order()
         order_form.description = description
+        order_form.po = purchase_order
         order_form.status = 'Pending'   
         order_form.user = request.user
         order_form.save()

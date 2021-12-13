@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['description', 'products', 'user']
+        fields = ['description', 'products', 'user', 'po']
 
 class PoForm(forms.ModelForm):
     class Meta:
