@@ -29,13 +29,20 @@
                 
                 <form method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
-                    <div class="form-group">
+                    
+                    <div class="form-group col-md-3" >
+                        <label for="">Purchase Order:</label>                        
+                        <input type="text" class="form-control" id="validationCustom01" value="{{order.po.po_number}}" disabled>
+
+                    </div>
+                    
+                    <div class="form-group col-md-8" >
                         <label for="formGroupExampleInput">Order description</label>
                         <input type="text" class="form-control" id="validationCustom01" name="description" value="{{ order.description }}" required>
                     </div>
                     
                     {% for product in products %}
-                    <div class="row">
+                    <div class="row col-md-10">
                         <div class="col-7">
                             <label for="formGroupExampleInput">Product</label>                            
                             <select class="form-control" name="products" required>
@@ -65,7 +72,7 @@
                             </a>                            
                         </div>
                         {% endif %}
-
+                        
                     </div>
                     {% endfor %}                      
                     
