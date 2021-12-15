@@ -120,9 +120,7 @@ def review_order(request, order_id):
     order = Order.objects.get(pk=order_id)
     products = ThroughModel.objects.filter(order=order.id)
     all_products = Product.objects.all()
-    '''
-    save approved order with any modification
-    '''
+    # save approved order with any modification    
     if request.method == 'POST':
         description = request.POST['description']
         # get the list of products from html
@@ -133,13 +131,15 @@ def review_order(request, order_id):
         order_form.description = description
         order_form.status = 'Approved'        
         order_form.approval_date = timezone.now()
+
+        order_form.products.clear()
+                
+        # save m2m products in this order        
+        for prod, quan in zip(products, quantities):
+            order_form.products.add(prod, through_defaults={'quantity': quan})
+            message_successfull = "The order has been placed!"
         order_form.save()
         return redirect('index')
-        # save m2m products in this order        
-        # for prod, quan in zip(products, quantities):
-        #     order_form.products.add(prod, through_defaults={'quantity': quan})
-        #     message_successfull = "The order has been placed!"
-        #     # return redirect('index')
     
     context = {
         'order':order,
