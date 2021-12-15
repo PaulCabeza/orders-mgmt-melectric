@@ -17,32 +17,36 @@
                     My orders
                 </div>
                 <div class="card-body">
-                    <table class="table bg-white">
-                        <thead class="bg-info text-white">
-                            <tr>
-                                <th>#</th>
-                                <th scope="col">Order Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Sent Date</th>
-                                <th scope="col">Approval Date</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for order in orders_list %}                                
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td><a href="{% url 'order-detail' order.id %}">{{ order.description }}</a></td>
-                                <td>{{ order.status }}</td>
-                                <td>{{ order.created.date }}</td>
-                                <td>{{ order.approval_date.date }}</td>
-                                {% if order.status == "Pending" %}
-                                <td><a class="btn btn-danger btn-sm" href="{% url 'pending-order-delete' order.id %}">Del</a></td>
-                                {% endif %}
-                            </tr>                                
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-sm bg-white">
+                            <thead class="bg-info text-white">
+                                <tr>
+                                    <th>#</th>
+                                    <th scope="col">Order Name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Sent Date</th>
+                                    <th scope="col">Approval Date</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders_list %}                                
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{% url 'order-detail' order.id %}">{{ order.description }}</a></td>
+                                    <td>{{ order.status }}</td>
+                                    <td>{{ order.created.date }}</td>
+                                    <td>{{ order.approval_date.date }}</td>
+                                    {% if order.status == "Pending" %}
+                                    <td><a class="btn btn-danger btn-sm" href="{% url 'pending-order-delete' order.id %}">Del</a></td>
+                                    {% endif %}
+                                </tr>                                
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                    
                 </div>
             </div>
         </div>
