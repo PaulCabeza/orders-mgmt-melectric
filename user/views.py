@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
@@ -12,6 +13,11 @@ def register(request):
         if form.is_valid:
             # form.clean_email()
             form.save()
+            messages.success(request, 'New user created successfully.')
+            return redirect('login')
+
+        else:
+            messages.error(request, 'Something wrong happened, please try again.')
             return redirect('login')
 
     else:
@@ -20,5 +26,6 @@ def register(request):
     
     context = {
         'form': form,
+        'messages': messages
     }
     return render(request, 'user/register.html', context)
