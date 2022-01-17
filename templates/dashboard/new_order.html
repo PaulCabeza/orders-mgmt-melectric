@@ -155,7 +155,7 @@
         
         // d.options[d.options.length] = new Option("-- select a product --")
         {% for product in list_products %}
-        d.options[d.options.length] = new Option("{{product.product_name}}","{{product.id}}")
+        d.options[d.options.length] = new Option("{{product.product_name|escapejs}}","{{product.id}}")
         {% endfor %}
         // start append children to do the structure of html
         label1 = document.createElement("label")
