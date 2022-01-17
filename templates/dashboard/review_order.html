@@ -10,7 +10,7 @@
 </script>
 
 <div class="container">
-    
+
     <div class="col-md-12">
         <br>
         <div class="card">
@@ -18,47 +18,47 @@
                 Review order
             </div>
             <div class="card-body">
-                
+
                 {% if message_successfull %}
-                
+
                 <div class="alert alert-info">
                     <h5>{{ message_successfull}}</h5>
                 </div>
-                
+
                 {% endif %}
-                
+
                 <form method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
-                    
+
                     <div class="form-group col-md-3" >
-                        <label for="">Purchase Order:</label>                        
+                        <label for="">Purchase Order:</label>
                         <input type="text" class="form-control" id="validationCustom01" value="{{order.po.po_number}}" disabled>
 
                     </div>
-                    
+
                     <div class="form-group col-md-8" >
                         <label for="formGroupExampleInput">Order description</label>
                         <input type="text" class="form-control" id="validationCustom01" name="description" value="{{ order.description }}" required>
                     </div>
-                    
+
                     {% for product in products %}
                     <div class="row col-md-10">
                         <div class="col-7">
-                            <label for="formGroupExampleInput">Product</label>                            
+                            <label for="formGroupExampleInput">Product</label>
                             <select class="form-control" name="products" required>
                                 {% for prod in all_products %}
-                                
+
                                 {% if prod.id == product.product.id %}
                                 <option value="{{prod.id}}" selected>{{prod.product_name}}</option>
                                 {% else %}
                                 <option value="{{prod.id}}">{{prod.product_name}}</option>
                                 {% endif %}
-                                
-                                {% endfor %}                                
-                                
-                            </select>                            
+
+                                {% endfor %}
+
+                            </select>
                         </div>
-                        <input type="hidden" name="" value="{{forloop.counter}}">                        
+                        <input type="hidden" name="" value="{{forloop.counter}}">
                         <div class="col-3">
                             <label for="formGroupExampleInput">Quantity</label>
                             <input type="number" class="form-control" value="{{product.quantity}}" name="quantities" required>
@@ -68,23 +68,23 @@
                             <hr style="border-color: white;">
                             <a href="#" class="btn btn-danger a-btn-slide-text pd-0" onclick="delete_row(this)">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                <span><strong>Delete</strong></span>            
-                            </a>                            
+                                <span><strong>Delete</strong></span>
+                            </a>
                         </div>
                         {% endif %}
-                        
+
                     </div>
-                    {% endfor %}                      
-                    
+                    {% endfor %}
+
                     <div id="moreproducts">
                     </div>
                     <br>
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <a type="button" class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
-                            <button type="submit" class="btn btn-success">Approve</button>                                                        
+                            <button type="submit" class="btn btn-success">Approve</button>
                         </div>
-                    </div>                        
+                    </div>
                 </form>
             </div>
         </div>
@@ -105,7 +105,7 @@
         a = document.getElementById("moreproducts")
         // create first div class row
         row = document.createElement("div")
-        row.setAttribute("class", "row")        
+        row.setAttribute("class", "row")
         // create second div class col
         col1 = document.createElement("div")
         col1.setAttribute("class", "col-7")
@@ -114,15 +114,15 @@
         d.setAttribute("class", "form-control")
         d.setAttribute("name", "products")
         d.setAttribute("required", "")
-        
+
         selectedOption = document.createElement("option")
         selectedOption.innerHTML = "-- select a product --"
         selectedOption.value = ""
         selectedOption.disabled = true
         selectedOption.selected = true
-        
+
         d.appendChild(selectedOption)
-        
+
         // d.options[d.options.length] = new Option("-- select a product --")
         {% for product in list_products %}
         d.options[d.options.length] = new Option("{{product.product_name}}","{{product.id}}")
@@ -131,65 +131,65 @@
         label1 = document.createElement("label")
         label1.setAttribute("for", "formGroupExampleInput")
         label1.innerHTML = "Product"
-        
+
         col1.appendChild(label1)
         col1.appendChild(d)
         // row.appendChild(c)
         // start second div row
         col2 = document.createElement("div")
         col2.setAttribute("class", "col-3")
-        
+
         f = document.createElement("label")
         f.setAttribute("for", "formGroupExampleInput")
         f.innerHTML = "Quantity"
-        
+
         g = document.createElement("input")
         g.setAttribute("type", "number")
         g.setAttribute("class", "form-control")
         g.setAttribute("name", "quantities")
         g.setAttribute("required", "")
-        
+
         col2.appendChild(f)
         col2.appendChild(g)
         // start building the 3rd column, the delete icon
         col3 = document.createElement("div")
         col3.setAttribute("class", "col-2")
-        
+
         br = document.createElement("hr")
         br.setAttribute("style", "border-color:white")
-        
+
         span1 = document.createElement("span")
         span1.setAttribute("class", "glyphicon glyphicon-remove")
         span1.setAttribute("aria-hidden", "true")
-        
+
         strong1 = document.createElement("strong")
         strong1.innerHTML = "Delete"
-        
+
         span2 = document.createElement("span")
         span2.appendChild(strong1)
-        
+
         adelete = document.createElement("a")
         adelete.setAttribute("href", "#")
         adelete.setAttribute("class", "btn btn-danger a-btn-slide-text")
         adelete.setAttribute("onclick", "delete_row(this)")
         adelete.appendChild(span1)
         adelete.appendChild(span2)
-        
-        col3.appendChild(br)        
+
+        col3.appendChild(br)
         col3.appendChild(adelete)
-        
+
         row.appendChild(col1)
         row.appendChild(col2)
         row.appendChild(col3)
-        
+
         a.appendChild(row)
-        
+
     }
-    
+
     function delete_row(e){
         e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
     };
-    
+
     (function() {
         'use strict';
         window.addEventListener('load', function() {
@@ -207,7 +207,7 @@
             });
         }, false);
     })();
-    
+
 </script>
 
 {% endblock %}
