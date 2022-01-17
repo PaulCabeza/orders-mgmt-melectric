@@ -6,7 +6,7 @@
                 <div class="card-header">
                     Menu
                 </div>
-                <div class="card-body">                    
+                <div class="card-body">
                     <a class="btn btn-info btn-block" href="{% url 'new-order' %}">New order</a>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-sm bg-white">
-                            <thead class="bg-info text-white">
+                            <thead class="bg-secondary text-white">
                                 <tr>
                                     <th>#</th>
                                     <th scope="col">Order Name</th>
@@ -30,7 +30,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for order in orders_list %}                                
+                                {% for order in orders_list %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
                                     <td><a href="{% url 'order-detail' order.id %}">{{ order.description }}</a></td>
@@ -40,13 +40,13 @@
                                     {% if order.status == "Pending" %}
                                     <td><a class="btn btn-danger btn-sm" href="{% url 'pending-order-delete' order.id %}">Del</a></td>
                                     {% endif %}
-                                </tr>                                
+                                </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>

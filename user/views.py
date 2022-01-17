@@ -23,7 +23,7 @@ def register(request):
     else:
         form = MyCustomUserCreationForm()
 
-    
+
     context = {
         'form': form,
         'messages': messages

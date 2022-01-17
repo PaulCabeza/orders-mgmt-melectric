@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 <div class="container">
     <div class="row mt-4">
-        
+
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -9,14 +9,14 @@
                 </div>
                 <div class="card-body">
                     {% if success %}
-                    
+
                     <div class="alert alert-info">
                         <h5>Order successfully deleted</h5>
                     </div>
-                    
+
                     {% endif %}
                     <table class="table bg-white">
-                        <thead class="bg-info text-white">
+                        <thead class="bg-dark text-white">
                             <tr>
                                 <th>#</th>
                                 <th scope="col">Order Name</th>
@@ -27,15 +27,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for order in pending_orders %}                                
+                            {% for order in pending_orders %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td><a href="{% url 'review-order' order.id %}">{{ order.description }}</a></td>
                                 <td>{{ order.status }}</td>
                                 <td>{{ order.created.date }}</td>
                                 <td>{{ order.user }}</td>
-                                <td><a class="btn btn-danger btn-sm" href="{% url 'pending-order-delete' order.id %}">Del</a></td>                                
-                            </tr>                                
+                                <td><a class="btn btn-danger btn-sm" href="{% url 'pending-order-delete' order.id %}">Del</a></td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>

@@ -6,23 +6,23 @@
 <!--Table-->
 <div class="container">
     <div class="row my-4">
-        <div class="col-md-3">               
-            
+        <div class="col-md-3">
+
             <div class="border bg-white p-3">
-                <h4>Purchase Orders</h4>    
-                                
+                <h4>Purchase Orders</h4>
+
                 <hr>
                 <form method="POST">
-                    {% csrf_token %}                    
+                    {% csrf_token %}
                     <div class="form-group">
                         <strong>Add a new PO</strong><br>
                         <label for="formGroupExampleInput">Po #:</label>
                         <input type="text" class="form-control" id="validationCustom01" value="{{new_po_number}}" disabled>
                         <input type="hidden" name="new-po-number" value="{{new_po_number}}">
                     </div>
-                    
+
                     <input class="btn btn-success btn-block" type="submit" value="Add">
-                    <button class="btn btn-info btn-block" type="button" >Show all POs</button>
+                    <!-- <button class="btn btn-info btn-block" type="button" >Show all POs</button> -->
                 </form>
             </div>
         </div>
@@ -43,7 +43,7 @@
                                 <option value="3">Three</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="exampleInputEmail1">Select Month: </label>
                             <select class="form-control" aria-label="Default select example">
@@ -53,21 +53,21 @@
                                 <option value="3">Three</option>
                             </select>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-info btn-block">Filter POs</button>                        
+                        <button type="button" class="btn btn-info btn-block">Filter POs</button>
                     </div> -->
-                    
+
                     <div class="col-md-12">
                         <table class="table bg-white">
                             <thead class="bg-info">
                                 <tr class="text-white">
                                     <th scope="col" class="col-1" >#</th>
-                                    
-                                    <th scope="col" class="col-3">PO Number</th> 
-                                    <th scope="col" class="col-3">Status</th> 
-                                    <th scope="col" class="col-2">Actions</th> 
-                                    
+
+                                    <th scope="col" class="col-3">PO Number</th>
+                                    <th scope="col" class="col-3">Status</th>
+                                    <th scope="col" class="col-2">Actions</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,16 +75,16 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ po.po_number }}</td>
-                                    <td>{{ po.status }}</td>                   
-                                    
+                                    <td>{{ po.status }}</td>
+
                                     <td>
                                         <a class="btn btn-info btn-sm" href="{% url 'po-update' po.id %}">Edit</a>
                                         <a class="btn btn-danger btn-sm" href="{% url 'po-delete' po.id %}">Del</a>
                                     </td>
                                 </tr>
-                                {% endfor %}      
-                                
-                                
+                                {% endfor %}
+
+
                             </tbody>
                         </table>
                         <nav aria-label="Page navigation example">
@@ -96,11 +96,11 @@
                                 <li class="page-item disabled"><a href="#" class="page-link"> &laquo; First </a></li>
                                 <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
                                 {% endif %}
-                                
+
                                 <li class="page-item disabled">
-                                    <a href="#" class="page-link">Page {{all_pos.number}} of {{all_pos.paginator.num_pages}}</a>                        
+                                    <a href="#" class="page-link">Page {{all_pos.number}} of {{all_pos.paginator.num_pages}}</a>
                                 </li>
-                                
+
                                 {% if all_pos.has_next %}
                                 <li class="page-item"><a class="page-link" href="?page={{all_pos.next_page_number}}">next</a></li>
                                 <li class="page-item"><a class="page-link" href="?page={{all_pos.paginator.num_pages}}">Last &raquo;</a></li>
@@ -110,15 +110,15 @@
                                 {% endif %}
                             </ul>
                         </nav>
-                        
+
                     </div>
                 </div>
             </div>
-            
-            
+
+
         </div>
     </div>
-    
+
 </div>
 
 

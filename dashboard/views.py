@@ -26,7 +26,7 @@ def po_update(request, po_id):
     if request.method == 'POST':
         item.status = request.POST.get('status', False)
         item.save()
-        # form = PoForm(request.POST, instance=item)        
+        # form = PoForm(request.POST, instance=item)
         # if form.is_valid:
         #     form.save()
         return redirect('pos')
@@ -35,19 +35,19 @@ def po_update(request, po_id):
     # creating the context dictionary to be sent to the view
     context = {
         # 'form': form,
-        'po': item, 
+        'po': item,
     }
     return render(request, 'dashboard/po_update.html', context)
 
 @login_required
 def po_delete(request, po_id):
-    """Check if po in orders"""    
-    po_in_orders = Order.objects.filter(po=po_id)    
+    """Check if po in orders"""
+    po_in_orders = Order.objects.filter(po=po_id)
     if po_in_orders:
         delete_po = 0
     else:
         delete_po = 1
-    # get the product info from DB using the ORM    
+    # get the product info from DB using the ORM
     po = Po.objects.get(id=po_id)
     if request.method == 'POST':
         po.delete()
@@ -98,13 +98,13 @@ def category_update(request, category_id):
 
 @login_required
 def category_delete(request, category_id):
-    """Check if product in categories"""    
-    order = Product.objects.filter(category=category_id)    
+    """Check if product in categories"""
+    order = Product.objects.filter(category=category_id)
     if order:
         delete_category = 0
     else:
         delete_category = 1
-    # get the product info from DB using the ORM    
+    # get the product info from DB using the ORM
     category = Category.objects.get(id=category_id)
     if request.method == 'POST':
         category.delete()
@@ -120,7 +120,7 @@ def review_order(request, order_id):
     order = Order.objects.get(pk=order_id)
     products = ThroughModel.objects.filter(order=order.id)
     all_products = Product.objects.all()
-    # save approved order with any modification    
+    # save approved order with any modification
     if request.method == 'POST':
         description = request.POST['description']
         # get the list of products from html
@@ -129,18 +129,18 @@ def review_order(request, order_id):
         # fetch the order object to save a record
         order_form = Order.objects.get(pk=order_id)
         order_form.description = description
-        order_form.status = 'Approved'        
+        order_form.status = 'Approved'
         order_form.approval_date = timezone.now()
 
         order_form.products.clear()
-                
-        # save m2m products in this order        
+
+        # save m2m products in this order
         for prod, quan in zip(products, quantities):
             order_form.products.add(prod, through_defaults={'quantity': quan})
             message_successfull = "The order has been placed!"
         order_form.save()
         return redirect('index')
-    
+
     context = {
         'order':order,
         'products': products,
@@ -163,8 +163,8 @@ def new_order(request):
 
     list_products = Product.objects.all()
     active_pos = Po.objects.filter(status='Active').order_by('-id')
-    
-    
+
+
     if request.method == 'POST':
         description = request.POST['description']
         # purchase_order = request.POST['purchase_order']
@@ -174,22 +174,22 @@ def new_order(request):
         purchase_orders = request.POST.getlist('purchase_order')
         for pio in purchase_orders:
             pio = int(pio)
-        
+
         purchase_order = Po.objects.get(id=pio)
 
         # create the order object to save a record
         order_form = Order()
         order_form.description = description
         order_form.po = purchase_order
-        order_form.status = 'Pending'   
+        order_form.status = 'Pending'
         order_form.user = request.user
         order_form.save()
-        # save m2m products in this order        
+        # save m2m products in this order
         for prod, quan in zip(products, quantities):
             order_form.products.add(prod, through_defaults={'quantity': quan})
             message_successfull = "The order has been placed!"
             # return redirect('index')
-        
+
         context = {
             'description': description,
             'products': products,
@@ -209,13 +209,13 @@ def new_order(request):
 
 
 @login_required
-def index(request):    
+def index(request):
     orders_list = Order.objects.filter(user=request.user).order_by('-created')
     pending_orders = Order.objects.filter(status='Pending')
     context = {
         'orders_list': orders_list,
         'pending_orders': pending_orders,
-        # 'success': success,       
+        # 'success': success,
     }
     return render(request, 'dashboard/index.html', context)
 
@@ -245,7 +245,7 @@ def all_orders(request):
 
 
 # render the staff page
-@login_required 
+@login_required
 def staff(request):
     user_list = User.objects.all()
     context = {
@@ -275,7 +275,7 @@ def product_delete(request, product_id):
     '''
     Check if product in orders
     '''
-    order = Order.objects.filter(products=product_id)    
+    order = Order.objects.filter(products=product_id)
     if order:
         delete_product = 0
     else:
@@ -303,7 +303,7 @@ def products(request):
     products_paginator = Paginator(Product.objects.all().order_by('-id'), 10)
     requested_page = request.GET.get('page')
     all_products = products_paginator.get_page(requested_page)
-    
+
     # determine if sent to save the info or only render the blank form
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -323,10 +323,10 @@ def products(request):
 @login_required
 def pos(request):
     new_po_number = 0
-    """Render all Purchase Orders from DB"""
+    #Render all Purchase Orders from DB
     pos_list = Po.objects.all().order_by('id')
     last_po = Po.objects.all().last()
-    last_po_number = last_po.po_number   
+    last_po_number = last_po.po_number
 
     #setting up pagination
     pos_paginator = Paginator(Po.objects.all(), 10)
@@ -336,7 +336,7 @@ def pos(request):
     # create the dict with months and years with POs
     year_months_dict = list()
     years = list()
-    
+
     years = set(years)
     years = list(years)
 
@@ -348,8 +348,8 @@ def pos(request):
             if str(po.po_number)[0:2] == year:
                 months.append(str(po.po_number)[2:4])
                 # me quede tratando de pasar la lista de matrices con los years and months
-    
-        
+
+
     # get month from last PO
     month_last_po = str(last_po_number)[2:4]
     # get the current month and year
@@ -362,12 +362,15 @@ def pos(request):
         if int(month_last_po) <= 11:
             new_po_number = str(current_year) + str(current_month) + '01'
         else:
-            new_po_number = str(current_year + 1) + str(current_month) + '01'
+            if current_month <= 9:
+                new_po_number = str(current_year) + '0' + str(current_month) + '01'
+            else:
+                new_po_number = str(current_year) + str(current_month) + '01'
 
-    if request.method == 'POST':        
+    if request.method == 'POST':
         # Save a new PO
         new_po = Po()
-        po_number = request.POST.get('new-po-number')              
+        po_number = request.POST.get('new-po-number')
         new_po.po_number = po_number
         new_po.status = 'Active'
         new_po.save()

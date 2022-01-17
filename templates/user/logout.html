@@ -1,5 +1,5 @@
 {% extends 'partials/base.html' %}
-{% block title %} Logout page {% endblock %}
+{% block title %} Logging out {% endblock %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -7,12 +7,14 @@
     <div class="row mt-5">
         <div class="col-md-6 offset-md-3">
             <div class="border bg-white p-3">
-                <h3>Logout Page</h3>
+                <h3>Logout Confirmation</h3>
                 <hr>
-                <div class="alert alert-danger">
-                    
+                <div class="alert alert-warning">
+
                     <h4>You have been logged out</h4>
+                    <br>
                 </div>
+                <br>
                 <a href="{% url 'login' %}">Login</a>
             </div>
         </div>

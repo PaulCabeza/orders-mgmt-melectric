@@ -1,11 +1,11 @@
 {% extends 'partials/base.html' %}
-{% block title %} Staff Page {% endblock %}
+{% block title %} M-electric Staff  {% endblock %}
 
 {% block content %}
 
 
 <div class="container">
-    
+
         <div class="col-md-12">
             <br>
             <div class="card">
@@ -34,18 +34,18 @@
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.username }}</td>
                                 {% if user.is_staff and user.is_superuser %}
-                                <td>Admin</td>                            
+                                <td>Admin</td>
                                 {% elif user.is_staff%}
                                 <td>Supervisor</td>
                                 {% else %}
-                                <td>Staff</td>
+                                <td>Electrician</td>
                                 {% endif %}
                                 <!-- <td><a class="" href="">View Orders</a></td>
                                 <td scope="row"><a class="btn btn-info btn-sm" href="">View</a></td> -->
                             </tr>
                             {% endfor %}
                         </tbody>
-                    </table>                    
+                    </table>
                 </div>
             </div>
         </div>
