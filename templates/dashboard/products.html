@@ -20,47 +20,48 @@
             </div>
         </div>
         <div class="col-md-9">
-            <table class="table bg-white">
-                <thead class="bg-dark">
-                    <tr class="text-white">
-                        <th scope="col" class="col-1" >#</th>
-                        <th scope="col" class="col-6">Name</th>
-                        <th scope="col" class="col-2">Category</th>                            
-                        <th scope="col" class="col-2">Activity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in all_products %}
-                    <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ product.product_name }}</td>
-                            {% if product.category %}
-                            <td>{{ product.category }}</td>                            
-                            {% else %}
-                            <td>Uncategorized</td>
-                            {% endif %}
-                        <td>
-                            <a class="btn btn-info btn-sm" href="{% url 'product-update' product.id %}">Edit</a>
-                            <a class="btn btn-danger btn-sm" href="{% url 'product-delete' product.id %}">Del</a>
-                        </td>
-                    </tr>
-                    {% endfor %}                        
-                    
-                </tbody>
-            </table>
-            
+            <div class="table-responsive">
+                <table class="table bg-white">
+                    <thead class="bg-dark">
+                        <tr class="text-white">
+                            <th scope="col" class="col-1" >#</th>
+                            <th scope="col" class="col-6">Name</th>
+                            <th scope="col" class="col-2">Category</th>                            
+                            <th scope="col" class="col-2">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in all_products %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ product.product_name }}</td>
+                                {% if product.category %}
+                                <td>{{ product.category }}</td>                            
+                                {% else %}
+                                <td>Uncategorized</td>
+                                {% endif %}
+                            <td>
+                                <a class="btn btn-info btn-sm" href="{% url 'product-update' product.id %}">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="{% url 'product-delete' product.id %}">Del</a>
+                            </td>
+                        </tr>
+                        {% endfor %}                        
+                        
+                    </tbody>
+                </table>
+            </div>            
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     {% if all_products.has_previous %}
                     <li class="page-item"><a href="?page=1" class="page-link"> &laquo; First </a></li>
-                    <li class="page-item"><a href="?page={{all_products.previous_page_number}}" class="page-link">Previous</a></li>
+                    <li class="page-item"><a href="?page={{all_products.previous_page_number}}" class="page-link">prev</a></li>
                     {% else %}
                     <li class="page-item disabled"><a href="#" class="page-link"> &laquo; First </a></li>
-                    <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                    <li class="page-item disabled"><a href="#" class="page-link">prev</a></li>
                     {% endif %}
                     
                     <li class="page-item disabled">
-                        <a href="#" class="page-link">Page {{all_products.number}} of {{all_products.paginator.num_pages}}</a>                        
+                        <a href="#" class="page-link">{{all_products.number}} of {{all_products.paginator.num_pages}}</a>                        
                     </li>
                     
                     {% if all_products.has_next %}

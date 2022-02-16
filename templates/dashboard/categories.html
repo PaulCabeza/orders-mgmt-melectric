@@ -19,34 +19,48 @@
                     </form>
                 </div>
             </div>
+
+
+
+
             <div class="col-md-9">
-                <table class="table bg-white">
-                    <thead class="bg-secondary">
-                        <tr class="text-white">
-                            <th scope="col" class="col-1" >#</th>
-                            
-                            <th scope="col" class="col-6">Category Name</th> 
-                            <th scope="col" class="col-1">Actions</th> 
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for category in categories_list %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ category.category_name }}</td>                          
-                            
-                            <td>
-                                <a class="btn btn-info btn-sm" href="{% url 'category-update' category.id %}">Edit</a>
-                                <a class="btn btn-danger btn-sm" href="{% url 'category-delete' category.id %}">Del</a>
-                            </td>
-                        </tr>
-                    {% endfor %}                        
-                    </tbody>
-                </table>
+                <div class="card pl-0">
+                    <div class="card-header">
+                        Categories
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12 pl-0 pr-0">
+                            <table class="table bg-white">
+                                <thead class="bg-secondary">
+                                    <tr class="text-white">
+                                        <th scope="col" class="col-1" >#</th>
+                                        
+                                        <th scope="col" class="col-5">Category Name</th> 
+                                        <th scope="col" class="col-3">Actions</th> 
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for category in categories_list %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ category.category_name }}</td>                          
+                                        
+                                        <td>
+                                            <a class="btn btn-info btn-sm" href="{% url 'category-update' category.id %}">Edit</a>
+                                            <a class="btn btn-danger btn-sm" href="{% url 'category-delete' category.id %}">Del</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}                        
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>                        
+                </div>
             </div>
-        </div>
-        
+            
+        </div>        
     </div>
 
 

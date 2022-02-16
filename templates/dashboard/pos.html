@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="card">
+            <div class="card pl-0">
                 <div class="card-header">
                     Purchase Orders
                 </div>
@@ -58,7 +58,7 @@
                         <button type="button" class="btn btn-info btn-block">Filter POs</button>
                     </div> -->
 
-                    <div class="col-md-12">
+                    <div class="col-md-12 pl-0 pr-0">
                         <table class="table bg-white">
                             <thead class="bg-secondary">
                                 <tr class="text-white">
@@ -91,14 +91,14 @@
                             <ul class="pagination">
                                 {% if all_pos.has_previous %}
                                 <li class="page-item"><a href="?page=1" class="page-link"> &laquo; First </a></li>
-                                <li class="page-item"><a href="?page={{all_pos.previous_page_number}}" class="page-link">Previous</a></li>
+                                <li class="page-item"><a href="?page={{all_pos.previous_page_number}}" class="page-link">prev</a></li>
                                 {% else %}
                                 <li class="page-item disabled"><a href="#" class="page-link"> &laquo; First </a></li>
-                                <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+                                <li class="page-item disabled"><a href="#" class="page-link">prev</a></li>
                                 {% endif %}
 
                                 <li class="page-item disabled">
-                                    <a href="#" class="page-link">Page {{all_pos.number}} of {{all_pos.paginator.num_pages}}</a>
+                                    <a href="#" class="page-link">{{all_pos.number}} of {{all_pos.paginator.num_pages}}</a>
                                 </li>
 
                                 {% if all_pos.has_next %}

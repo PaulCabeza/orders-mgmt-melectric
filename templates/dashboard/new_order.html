@@ -42,7 +42,7 @@
                     <form method="POST" class="needs-validation" novalidate>
                         {% csrf_token %}
                         
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Select PO: </label>
                                 <select class="form-control" aria-label="Default select example" name="purchase_order">                                    
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         
-                        <div class="col-md-7">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Order description</label>
                                 <input type="text" class="form-control" id="validationCustom01" placeholder="Enter the description, ex: Order for customer #123" name="description" required>
@@ -62,7 +62,7 @@
                             
                         </div>
                         
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                             
                             <div class="row">
                                 <div class="col-7">
@@ -99,7 +99,7 @@
                         
                         <br>
                         <div class="form-group row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 pl-4">
                                 <button type="submit" class="btn btn-primary">Save</button>
                                 <button type="reset" class="btn btn-danger">Clear</button>
                                 <button type="button" onclick="moreProductsFields()" class="btn btn-secondary">Add product</button>
@@ -193,7 +193,7 @@
         span1.setAttribute("aria-hidden", "true")
         
         strong1 = document.createElement("strong")
-        strong1.innerHTML = "Delete"
+        strong1.innerHTML = "Del"
         
         span2 = document.createElement("span")
         span2.appendChild(strong1)
