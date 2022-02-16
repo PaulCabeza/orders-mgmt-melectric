@@ -16,6 +16,10 @@ from pathlib import Path
 import dj_database_url
 from decouple import config
 
+db_from_env = dj_database_url.config()
+
+DATABASES['default'].update(db_from_env)
+
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
