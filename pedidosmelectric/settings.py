@@ -16,8 +16,6 @@ from pathlib import Path
 import dj_database_url
 from decouple import config
 
-
-
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -92,11 +90,22 @@ WSGI_APPLICATION = 'pedidosmelectric.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'pedidos_db',
+         'USER': 'pedidos_db_user',
+         'PASSWORD': config("PEDIDOS_DB_PASS"),
+         'HOST': 'localhost',
+         'PORT': '',
+     }
 }
 
 # db_from_env = dj_database_url.config()
