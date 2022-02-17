@@ -18,20 +18,14 @@
                 Review order
             </div>
             <div class="card-body">
-
                 {% if message_successfull %}
-
-                <div class="alert alert-info">
-                    <h5>{{ message_successfull}}</h5>
-                </div>
-
+                    <div class="alert alert-info">
+                        <h5>{{ message_successfull}}</h5>
+                    </div>
                 {% endif %}
-
                 <form method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
-
                     <div class="form-group col-md-4" >
-
                         <div class="form-group">
                             <label for="exampleInputEmail1">Select PO: </label>
                             <select class="form-control" aria-label="Default select example" name="purchase_order">                                    
@@ -46,10 +40,6 @@
                                 {% endfor %}
                             </select>
                         </div>
-
-                        <!-- <label for="">Purchase Order:</label>
-                        <input type="text" class="form-control" id="validationCustom01" value="{{order.po.po_number}}"> -->
-
                     </div>
 
                     <div class="form-group col-md-8" >
@@ -57,47 +47,54 @@
                         <input type="text" class="form-control" id="validationCustom01" name="description" value="{{ order.description }}" required>
                     </div>
 
-                    {% for product in products %}
-                    <div class="row col-md-10">
-                        <div class="col-7">
-                            <label for="formGroupExampleInput">Product</label>
-                            <select class="form-control" name="products" required>
-                                {% for prod in all_products %}
-
-                                {% if prod.id == product.product.id %}
-                                <option value="{{prod.id}}" selected>{{prod.product_name}}</option>
-                                {% else %}
-                                <option value="{{prod.id}}">{{prod.product_name}}</option>
-                                {% endif %}
-
-                                {% endfor %}
-
-                            </select>
+                    <div class="col-md-12">
+                        {% for product in products %}
+                    
+                        <div class="row">
+                            <div class="col-7">
+                                <label for="formGroupExampleInput">Product</label>
+                                <select class="form-control" name="products" required>
+                                    {% for prod in all_products %}
+                                        {% if prod.id == product.product.id %}
+                                            <option value="{{prod.id}}" selected>{{prod.product_name}}</option>
+                                        {% else %}
+                                            <option value="{{prod.id}}">{{prod.product_name}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" name="" value="{{forloop.counter}}">
+                            <div class="col-3">
+                                <label for="formGroupExampleInput">Quantity</label>
+                                <input type="number" class="form-control" value="{{product.quantity}}" name="quantities" required>
+                            </div>
+                            {% if forloop.counter != 1 %}
+                            <div class="col-2 align-bottom">
+                                <hr style="border-color: white;">
+                                <a href="#" class="btn btn-danger a-btn-slide-text pd-0" onclick="delete_row(this)">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    <span><strong>del</strong></span>
+                                </a>
+                            </div>
+                            {% endif %}
+    
                         </div>
-                        <input type="hidden" name="" value="{{forloop.counter}}">
-                        <div class="col-3">
-                            <label for="formGroupExampleInput">Quantity</label>
-                            <input type="number" class="form-control" value="{{product.quantity}}" name="quantities" required>
+                        {% endfor %}
+                        <div id="moreproducts">
+                            
                         </div>
-                        {% if forloop.counter != 1 %}
-                        <div class="col-2 align-bottom">
-                            <hr style="border-color: white;">
-                            <a href="#" class="btn btn-danger a-btn-slide-text pd-0" onclick="delete_row(this)">
-                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                <span><strong>del</strong></span>
-                            </a>
-                        </div>
-                        {% endif %}
 
                     </div>
-                    {% endfor %}
 
-                    <div id="moreproducts">
-                    </div>
+                   
+
+                    
+
                     <br>
                     <div class="form-group row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 pl-4">
                             <a type="button" class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
+                            <button type="button" onclick="moreProductsFields()" class="btn btn-primary">Add Product</button>
                             <button type="submit" class="btn btn-success">Approve</button>
                         </div>
                     </div>
@@ -140,7 +137,7 @@
         d.appendChild(selectedOption)
 
         // d.options[d.options.length] = new Option("-- select a product --")
-        {% for product in list_products %}
+        {% for product in all_products %}
         d.options[d.options.length] = new Option("{{product.product_name}}","{{product.id}}")
         {% endfor %}
         // start append children to do the structure of html
@@ -225,5 +222,4 @@
     })();
 
 </script>
-
 {% endblock %}

@@ -152,7 +152,7 @@ def review_order(request, order_id):
         'order':order,
         'products': products,
         'all_products': all_products,
-        'active_pos': active_pos,
+        'active_pos': active_pos,        
     }
     return render(request, 'dashboard/review_order.html', context)
 
