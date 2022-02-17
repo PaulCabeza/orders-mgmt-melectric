@@ -325,8 +325,12 @@ def pos(request):
     new_po_number = 0
     #Render all Purchase Orders from DB
     pos_list = Po.objects.all().order_by('id')
-    last_po = Po.objects.all().last()
-    last_po_number = last_po.po_number
+    if pos_list:
+        last_po = Po.objects.all().last()
+        last_po_number = last_po.po_number
+    else:
+        last_po_number = 0
+
 
     #setting up pagination
     pos_paginator = Paginator(Po.objects.all(), 10)
@@ -350,22 +354,32 @@ def pos(request):
                 # me quede tratando de pasar la lista de matrices con los years and months
 
 
-    # get month from last PO
-    month_last_po = str(last_po_number)[2:4]
+    
     # get the current month and year
     current_month = datetime.date.today().month
     current_year = int(str(datetime.date.today().year)[2:4])
-    # generate new_po_number automatically comparing previous month and current year
-    if int(month_last_po) == current_month:
-        new_po_number = last_po_number + 1
-    else:
-        if int(month_last_po) <= 11:
-            new_po_number = str(current_year) + str(current_month) + '01'
+
+    if last_po_number > 0:        
+        # get month from last PO
+        month_last_po = str(last_po_number)[2:4]
+        # generate new_po_number automatically comparing previous month and current year
+        if int(month_last_po) == current_month:
+            new_po_number = last_po_number + 1
         else:
-            if current_month <= 9:
-                new_po_number = str(current_year) + '0' + str(current_month) + '01'
-            else:
+            if int(month_last_po) <= 11:
                 new_po_number = str(current_year) + str(current_month) + '01'
+            else:
+                if current_month <= 9:
+                    new_po_number = str(current_year) + '0' + str(current_month) + '01'
+                else:
+                    new_po_number = str(current_year) + str(current_month) + '01'
+    else:
+        if current_month <= 9:
+            new_po_number = str(current_year) + '0' + str(current_month) + '01'
+        else:
+            new_po_number = str(current_year) + str(current_month) + '01'
+
+
 
     if request.method == 'POST':
         # Save a new PO
