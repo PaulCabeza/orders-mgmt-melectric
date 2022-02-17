@@ -117,6 +117,7 @@ def category_delete(request, category_id):
 @login_required
 def review_order(request, order_id):
     order = Order.objects.get(pk=order_id)
+    active_pos = Po.objects.filter(status='Active').order_by('-id')
     products = ThroughModel.objects.filter(order=order.id)
     all_products = Product.objects.all()
     # save approved order with any modification
@@ -125,11 +126,18 @@ def review_order(request, order_id):
         # get the list of products from html
         products = request.POST.getlist('products')
         quantities = request.POST.getlist('quantities')
+        
+        purchase_orders = request.POST.getlist('purchase_order')
+        for pio in purchase_orders:
+            pio = int(pio)
+        purchase_order = Po.objects.get(id=pio)
+
         # fetch the order object to save a record
         order_form = Order.objects.get(pk=order_id)
         order_form.description = description
         order_form.status = 'Approved'
         order_form.approval_date = timezone.now()
+        order_form.po = purchase_order
 
         order_form.products.clear()
 
@@ -144,6 +152,7 @@ def review_order(request, order_id):
         'order':order,
         'products': products,
         'all_products': all_products,
+        'active_pos': active_pos,
     }
     return render(request, 'dashboard/review_order.html', context)
 

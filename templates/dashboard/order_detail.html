@@ -19,15 +19,13 @@
                 <div class="card-header">
                     Order Detail
                 </div>
-                <div class="card-body">
-                    
-                    <section class="mb-5">
-                        
+                <div class="card-body">                    
+                    <section class="mb-5">                        
                         <div class="row">                            
-                            <div class="col-md-12">
-                                
+                            <div class="col-md-12">                                
                                 <h5>Description:{{order.description}}</h5>
                                 <p class="mb-2 text-muted text-uppercase small">Status: {{order.status}}</p>
+                                <p><span class="mr-1">PO: {{order.po.po_number}} </span></p>
                                 <p><span class="mr-1">Owner: {{order.user.first_name}} {{order.user.last_name}} </span></p>
                                 <p><span class="mr-1">Created: {{order.created}} </span></p>
                                 

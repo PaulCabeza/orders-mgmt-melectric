@@ -30,9 +30,25 @@
                 <form method="POST" class="needs-validation" novalidate>
                     {% csrf_token %}
 
-                    <div class="form-group col-md-3" >
-                        <label for="">Purchase Order:</label>
-                        <input type="text" class="form-control" id="validationCustom01" value="{{order.po.po_number}}" disabled>
+                    <div class="form-group col-md-4" >
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Select PO: </label>
+                            <select class="form-control" aria-label="Default select example" name="purchase_order">                                    
+                                {% for active_po in active_pos %}
+
+                                    {% if active_po.po_number == order.po.po_number %}
+                                        <option value="{{active_po.id}}" selected>{{ active_po.po_number }}</option>
+                                    {% else %}
+                                        <option value="{{active_po.id}}">{{ active_po.po_number }}</option>
+                                    {% endif %}
+                                
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- <label for="">Purchase Order:</label>
+                        <input type="text" class="form-control" id="validationCustom01" value="{{order.po.po_number}}"> -->
 
                     </div>
 
@@ -68,7 +84,7 @@
                             <hr style="border-color: white;">
                             <a href="#" class="btn btn-danger a-btn-slide-text pd-0" onclick="delete_row(this)">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                <span><strong>Delete</strong></span>
+                                <span><strong>del</strong></span>
                             </a>
                         </div>
                         {% endif %}
@@ -163,7 +179,7 @@
         span1.setAttribute("aria-hidden", "true")
 
         strong1 = document.createElement("strong")
-        strong1.innerHTML = "Delete"
+        strong1.innerHTML = "del"
 
         span2 = document.createElement("span")
         span2.appendChild(strong1)
