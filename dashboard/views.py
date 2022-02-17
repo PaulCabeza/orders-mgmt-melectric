@@ -7,7 +7,6 @@ from django.utils import timezone
 
 # import pagination needed
 from django.core.paginator import Paginator
-
 import user
 
 # Custom import files
