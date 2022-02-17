@@ -15,11 +15,19 @@ from pathlib import Path
 # import django_heroku
 import dj_database_url
 from decouple import config
+import dotenv
+import os
+
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# added to load sqlite locally
+dotenv_file = os.path.join(BASE_DIR, ".envdb")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 
 # Quick-start development settings - unsuitable for production
@@ -90,26 +98,31 @@ WSGI_APPLICATION = 'pedidosmelectric.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#      'default': {
+#          'ENGINE': 'django.db.backends.sqlite3',
+#          'NAME': BASE_DIR / 'db.sqlite3',
+#      }
+#  }
+
+
+
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#          'NAME': 'pedidos_db',
+#          'USER': 'pedidos_db_user',
+#          'PASSWORD': config("PEDIDOS_DB_PASS"),
+#          'HOST': 'localhost',
+#          'PORT': '',
+#      }
 # }
 
-DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME': 'pedidos_db',
-         'USER': 'pedidos_db_user',
-         'PASSWORD': config("PEDIDOS_DB_PASS"),
-         'HOST': 'localhost',
-         'PORT': '',
-     }
-}
-
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
