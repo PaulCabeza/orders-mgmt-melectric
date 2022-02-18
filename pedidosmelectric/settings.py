@@ -45,6 +45,7 @@ ALLOWED_HOSTS = [
     'pedidosmelectric3.herokuapp.com',
     'localhost:8000',
     'localhost',
+    'orders-mgmt-app.herokuapp.com',
 ]
 
 
