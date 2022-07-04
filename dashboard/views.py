@@ -242,9 +242,6 @@ def pending_order_delete(request, order_id):
     return render(request, 'dashboard/pending_order_delete.html', context)
 
 
-'''
-Render all orders from recent to olders
-'''
 @login_required
 def all_orders(request):
     all_orders = Order.objects.all().order_by('-created')
