@@ -1,9 +1,15 @@
 # imports from django
 from django.db.models.query_utils import Q
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
+
+# imports from rest_framework
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 # import pagination needed
 from django.core.paginator import Paginator
@@ -12,11 +18,20 @@ import user
 # Custom import files
 from .models import Order, Po, Product, ThroughModel, Category
 from .forms import CategoryForm, ProductForm, OrderForm, PoForm
+from .serializers import PoSerializer
 
 #utilities
 import datetime
 
 # Create your views here.
+
+@api_view()
+def po_list(request):
+    # po_list = Po.objects.filter(status='Active')
+    po_list = Po.objects.filter(status='Active')
+    serializer = PoSerializer(po_list, many=True)
+    print(po_list)
+    return Response(serializer.data)
 
 @login_required
 def po_update(request, po_id):
@@ -56,8 +71,6 @@ def po_delete(request, po_id):
         'delete_po': delete_po,
     }
     return render(request, 'dashboard/po_delete.html', context)
-
-
 
 @login_required
 def categories(request):
@@ -214,8 +227,6 @@ def new_order(request):
 
     return render(request, 'dashboard/new_order.html',context)
 
-
-
 @login_required
 def index(request):
     orders_list = Order.objects.filter(user=request.user).order_by('-created')
@@ -241,15 +252,11 @@ def pending_order_delete(request, order_id):
     }
     return render(request, 'dashboard/pending_order_delete.html', context)
 
-
 @login_required
 def all_orders(request):
     all_orders = Order.objects.all().order_by('-created')
     return render(request, 'dashboard/all_orders.html', {'all_orders':all_orders})
 
-
-
-# render the staff page
 @login_required
 def staff(request):
     user_list = User.objects.all()
@@ -324,6 +331,8 @@ def products(request):
         'all_products': all_products
     }
     return render(request, 'dashboard/products.html', context)
+
+
 
 @login_required
 def pos(request):
